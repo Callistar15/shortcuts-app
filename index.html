@@ -7,90 +7,122 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F5F0E8;
-  --bg2:#EDE8DC;
-  --surface:#FDFAF4;
-  --surface2:#F8F4EA;
-  --border:#DDD5C0;
-  --border2:#C8BFA8;
-  --green:#2C5F2E;
-  --green2:#3A7A3D;
-  --green3:#4E9E52;
-  --green-pale:#E8F2E8;
-  --green-light:#C5DFC6;
-  --beige:#F5F0E8;
-  --beige2:#E8DFD0;
-  --beige3:#D4C9B0;
-  --text:#1C2B1D;
-  --text2:#3D4F3E;
-  --text3:#6B7D6C;
-  --text4:#9AA89B;
-  --gold:#8A6E3E;
-  --gold2:#B8924F;
-  --excel:#1D5FA8;
-  --ppt:#B83232;
-  --win:#2C5F2E;
-  --custom:#8A6E3E;
+  --bg:#F5F0E8;--bg2:#EDE8DC;--surface:#FDFAF4;
+  --border:#DDD5C0;--border2:#C8BFA8;
+  --green:#2C5F2E;--green2:#3A7A3D;--green3:#4E9E52;
+  --green-pale:#E8F2E8;--green-light:#C5DFC6;
+  --beige3:#D4C9B0;--text:#1C2B1D;--text2:#3D4F3E;--text3:#6B7D6C;--text4:#9AA89B;
+  --excel:#1D5FA8;--ppt:#B83232;--win:#2C5F2E;
+  --mastered:#22863a;--mastered-bg:#e6f4ea;--mastered-border:#a8d5b5;
+  --learning:#b45309;--learning-bg:#fef3e2;--learning-border:#f0c070;
+  --unknown:#b91c1c;--unknown-bg:#fde8e8;--unknown-border:#f0a0a0;
 }
 body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-height:100vh}
-.header{background:var(--green);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.header{background:var(--green);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:16px}
 .logo-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:20px}
-.logo-title{font-size:18px;font-weight:700;color:#F5F0E8;letter-spacing:.3px;font-family:'Georgia',serif}
+.logo-title{font-size:18px;font-weight:700;color:#F5F0E8;font-family:'Georgia',serif}
 .logo-sub{font-size:11px;color:rgba(245,240,232,0.6);margin-top:2px;letter-spacing:.08em;font-family:'Segoe UI',sans-serif}
-.header-stats{display:flex;gap:32px}
+.header-stats{display:flex;gap:24px;flex-wrap:wrap}
 .hstat{text-align:right}
-.hstat-n{font-size:24px;font-weight:700;color:#F5F0E8;line-height:1;font-family:'Georgia',serif}
+.hstat-n{font-size:22px;font-weight:700;color:#F5F0E8;line-height:1;font-family:'Georgia',serif}
+.hstat-n.green{color:#86efac}
+.hstat-n.yellow{color:#fde68a}
+.hstat-n.red{color:#fca5a5}
 .hstat-l{font-size:10px;color:rgba(245,240,232,0.55);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;font-family:'Segoe UI',sans-serif}
-.nav{background:var(--green2);padding:0 2.5rem;display:flex;gap:0;overflow-x:auto}
-.nav-tab{padding:13px 22px;font-size:13px;font-weight:400;color:rgba(245,240,232,0.6);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'Segoe UI',sans-serif;letter-spacing:.03em}
+.nav{background:var(--green2);padding:0 2.5rem;display:flex;overflow-x:auto}
+.nav-tab{padding:13px 22px;font-size:13px;font-weight:400;color:rgba(245,240,232,0.6);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'Segoe UI',sans-serif}
 .nav-tab:hover{color:#F5F0E8}
 .nav-tab.active{color:#F5F0E8;border-bottom-color:var(--beige3)}
 .main{padding:2rem 2.5rem;max-width:1100px;margin:0 auto}
-@media(max-width:640px){.main{padding:1.25rem 1rem}.header{padding:1rem;flex-wrap:wrap}.header-stats{gap:16px}.nav{padding:0 1rem}}
+@media(max-width:640px){.main{padding:1.25rem 1rem}.header{padding:1rem}.nav{padding:0 1rem}}
 .stitle{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;font-family:'Segoe UI',sans-serif}
 .stitle::after{content:'';flex:1;height:1px;background:var(--border)}
-.filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:1rem}
+.search-input{width:100%;padding:10px 40px 10px 40px;border-radius:24px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-family:'Segoe UI',sans-serif;transition:border .2s;outline:none}
+.search-input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,95,46,.08)}
+.search-input::placeholder{color:var(--text4)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text4);font-size:14px;pointer-events:none}
+.search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text4);font-size:16px;padding:2px 6px;border-radius:50%;line-height:1;display:none}
+.search-clear.show{display:block}
+.search-clear:hover{color:var(--text2)}
+.search-count{font-size:11px;color:var(--text4);font-family:'Segoe UI',sans-serif;margin-bottom:.75rem}
+/* FILTERS */
+.filter-bar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
 .filter-btn{padding:6px 18px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:500;transition:all .2s;font-family:'Segoe UI',sans-serif}
 .filter-btn:hover{border-color:var(--green2);color:var(--green)}
 .fb-all.on{background:var(--green);border-color:var(--green);color:#F5F0E8}
 .fb-excel.on{background:rgba(29,95,168,.1);border-color:var(--excel);color:var(--excel)}
 .fb-ppt.on{background:rgba(184,50,50,.1);border-color:var(--ppt);color:var(--ppt)}
 .fb-win.on{background:var(--green-pale);border-color:var(--green3);color:var(--green)}
+.level-bar{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.lbtn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:'Segoe UI',sans-serif;display:flex;align-items:center;gap:6px}
+.lbtn:hover{border-color:var(--border2)}
+.lbtn.on-mastered{background:var(--mastered-bg);border-color:var(--mastered-border);color:var(--mastered)}
+.lbtn.on-learning{background:var(--learning-bg);border-color:var(--learning-border);color:var(--learning)}
+.lbtn.on-unknown{background:var(--unknown-bg);border-color:var(--unknown-border);color:var(--unknown)}
+.lbtn.on-unset{background:var(--bg2);border-color:var(--border2);color:var(--text2)}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dot-mastered{background:var(--mastered)}
+.dot-learning{background:var(--learning)}
+.dot-unknown{background:var(--unknown)}
+.dot-unset{background:var(--border2)}
+/* CARDS */
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
-.card-wrap{height:185px;perspective:900px;cursor:pointer}
+.card-wrap{height:195px;perspective:900px;cursor:pointer;position:relative}
 .card-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
 .card-wrap.flipped .card-inner{transform:rotateY(180deg)}
-.card-face{position:absolute;inset:0;border-radius:12px;padding:1.35rem;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--border)}
+.card-face{position:absolute;inset:0;border-radius:12px;padding:1.2rem;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--border)}
 .card-front{background:var(--surface);transition:all .2s}
 .card-front:hover{border-color:var(--green3);box-shadow:0 4px 20px rgba(44,95,46,.1);transform:translateY(-2px)}
-.card-back{transform:rotateY(180deg);background:var(--green);border-color:var(--green);justify-content:center;align-items:center;text-align:center;gap:10px}
-.cat-bar{height:3px;border-radius:2px;margin-bottom:12px}
-.cbar-excel{background:var(--excel)}
-.cbar-ppt{background:var(--ppt)}
-.cbar-win{background:var(--win)}
-.cbar-custom{background:var(--gold2)}
-.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.cbadge{padding:3px 10px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-family:'Segoe UI',sans-serif}
+.card-back{transform:rotateY(180deg);background:var(--green);border-color:var(--green);justify-content:center;align-items:center;text-align:center;gap:8px}
+.card-wrap.lv-mastered .card-front{border-left:3px solid var(--mastered)}
+.card-wrap.lv-learning .card-front{border-left:3px solid var(--learning)}
+.card-wrap.lv-unknown .card-front{border-left:3px solid var(--unknown)}
+.cat-bar{height:2px;border-radius:1px;margin-bottom:10px}
+.cbar-excel{background:var(--excel)}.cbar-ppt{background:var(--ppt)}.cbar-win{background:var(--win)}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.card-top-left{display:flex;align-items:center;gap:6px;position:relative}
+.cbadge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'Segoe UI',sans-serif}
 .cbx-excel{background:rgba(29,95,168,.1);color:var(--excel)}
 .cbx-ppt{background:rgba(184,50,50,.1);color:var(--ppt)}
 .cbx-win{background:var(--green-pale);color:var(--green)}
-.cbx-custom{background:rgba(138,110,62,.1);color:var(--gold)}
-.card-shortcut{font-size:16px;font-weight:700;font-family:'Consolas','Courier New',monospace;color:var(--text);line-height:1.4}
-.card-hint{font-size:11px;color:var(--text3);margin-top:4px;line-height:1.4;font-family:'Segoe UI',sans-serif}
+.lv-flag{width:22px;height:22px;border-radius:50%;cursor:pointer;flex-shrink:0;border:2px solid transparent;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.lv-flag:hover{transform:scale(1.2)}
+.lv-flag:active{transform:scale(0.95)}
+.lv-flag.mastered{background:var(--mastered);border-color:var(--mastered)}
+.lv-flag.learning{background:var(--learning);border-color:var(--learning)}
+.lv-flag.unknown{background:var(--unknown);border-color:var(--unknown)}
+.lv-flag.unset{background:#ddd;border-color:#ccc}
+.lv-picker{position:absolute;top:28px;left:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:4px;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.15);min-width:170px}
+.lv-picker-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-family:'Segoe UI',sans-serif;color:var(--text2);border:none;background:transparent;width:100%;text-align:left;-webkit-tap-highlight-color:transparent}
+.lv-picker-opt:hover,.lv-picker-opt:active{background:var(--bg2)}
+.lv-picker-opt .dot{width:12px;height:12px}
+.lv-sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;display:flex;align-items:flex-end;justify-content:center}
+.lv-sheet{background:var(--surface);border-radius:20px 20px 0 0;padding:1.25rem 1.25rem 2rem;width:100%;max-width:480px;box-shadow:0 -4px 32px rgba(0,0,0,.15)}
+.lv-sheet-handle{width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 1.25rem}
+.lv-sheet-title{font-size:13px;font-weight:600;color:var(--text3);text-align:center;margin-bottom:1rem;font-family:'Segoe UI',sans-serif;text-transform:uppercase;letter-spacing:.06em}
+.lv-sheet-opts{display:flex;flex-direction:column;gap:8px}
+.lv-sheet-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;cursor:pointer;font-size:15px;font-family:'Segoe UI',sans-serif;color:var(--text);border:1.5px solid var(--border);background:var(--bg);-webkit-tap-highlight-color:transparent}
+.lv-sheet-opt:active{transform:scale(0.98)}
+.lv-sheet-opt.opt-mastered{border-color:var(--mastered-border);background:var(--mastered-bg);color:var(--mastered)}
+.lv-sheet-opt.opt-learning{border-color:var(--learning-border);background:var(--learning-bg);color:var(--learning)}
+.lv-sheet-opt.opt-unknown{border-color:var(--unknown-border);background:var(--unknown-bg);color:var(--unknown)}
+.lv-sheet-opt .dot{width:14px;height:14px;flex-shrink:0}
+.card-shortcut{font-size:15px;font-weight:700;font-family:'Consolas','Courier New',monospace;color:var(--text);line-height:1.4}
+.card-hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4;font-family:'Segoe UI',sans-serif}
 .card-flip-hint{font-size:10px;color:var(--text4);text-align:right;font-family:'Segoe UI',sans-serif}
-.card-back-action{font-size:14px;font-weight:600;color:#F5F0E8;line-height:1.5;padding:0 .5rem;font-family:'Georgia',serif}
-.card-back-short{font-size:11px;color:rgba(245,240,232,0.65);font-family:monospace;margin-top:6px}
-.ibtn{background:none;border:none;cursor:pointer;color:var(--text4);font-size:13px;padding:3px 5px;border-radius:4px;transition:all .15s;line-height:1}
-.ibtn:hover{color:var(--green);background:var(--green-pale)}
-.ibtn.del:hover{color:var(--ppt);background:rgba(184,50,50,.08)}
-.big-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;min-height:300px;padding:2.25rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:all .25s;cursor:pointer}
+.card-back-action{font-size:13px;font-weight:600;color:#F5F0E8;line-height:1.5;padding:0 .5rem;font-family:'Georgia',serif}
+.card-back-short{font-size:11px;color:rgba(245,240,232,0.65);font-family:monospace;margin-top:5px}
+/* SLIDE */
+.big-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;min-height:300px;padding:2.25rem;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:all .25s}
 .big-card.flipped{background:var(--green);border-color:var(--green)}
-.big-shortcut{font-size:32px;font-weight:700;font-family:'Consolas',monospace;color:var(--text);line-height:1.3;margin:1rem 0}
+.big-shortcut{font-size:28px;font-weight:700;font-family:'Consolas',monospace;color:var(--text);line-height:1.3;margin:1rem 0}
 .big-hint{font-size:13px;color:var(--text3);line-height:1.5;font-family:'Segoe UI',sans-serif}
-.big-action{font-size:22px;font-weight:600;color:#F5F0E8;line-height:1.5;text-align:center;padding:0 1rem;font-family:'Georgia',serif}
+.big-action{font-size:20px;font-weight:600;color:#F5F0E8;line-height:1.5;text-align:center;padding:0 1rem;font-family:'Georgia',serif}
 .big-sub{font-size:12px;color:rgba(245,240,232,0.6);font-family:monospace;margin-top:.75rem;text-align:center}
-.flip-zone{cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.flip-zone{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .flip-tip{font-size:11px;color:var(--text4);margin-top:1rem;font-family:'Segoe UI',sans-serif}
 .flip-tip-inv{font-size:11px;color:rgba(245,240,232,0.5);margin-top:1rem;font-family:'Segoe UI',sans-serif}
 .slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem}
@@ -104,6 +136,13 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .kbd-hint{display:flex;gap:14px;justify-content:center;margin-top:1rem;flex-wrap:wrap}
 .kbd-hint span{font-size:11px;color:var(--text4);font-family:'Segoe UI',sans-serif}
 .kbd{display:inline-block;padding:1px 8px;border-radius:4px;border:1px solid var(--border);background:var(--bg2);font-family:monospace;font-size:11px;color:var(--text3)}
+.slide-level-row{display:flex;gap:8px;justify-content:center;margin-top:1rem;flex-wrap:wrap}
+.slbtn{padding:7px 16px;border-radius:20px;border:1px solid var(--border);background:var(--surface);cursor:pointer;font-size:12px;font-weight:600;font-family:'Segoe UI',sans-serif;display:flex;align-items:center;gap:6px;transition:all .2s;color:var(--text3)}
+.slbtn:hover{background:var(--bg2)}
+.slbtn.active-mastered{background:var(--mastered-bg);border-color:var(--mastered-border);color:var(--mastered)}
+.slbtn.active-learning{background:var(--learning-bg);border-color:var(--learning-border);color:var(--learning)}
+.slbtn.active-unknown{background:var(--unknown-bg);border-color:var(--unknown-border);color:var(--unknown)}
+/* QUIZ */
 .quiz-mode-sel{display:flex;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap}
 .qmode-btn{flex:1;min-width:180px;padding:1.2rem 1.35rem;border-radius:12px;border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;transition:all .2s}
 .qmode-btn:hover{border-color:var(--green2)}
@@ -114,39 +153,27 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .progress-fill{height:100%;background:var(--green);border-radius:2px;transition:width .35s}
 .quiz-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.75rem;margin-bottom:1rem}
 .quiz-q{font-size:16px;font-weight:600;color:var(--text);margin-bottom:1.5rem;line-height:1.6;font-family:'Georgia',serif}
-.quiz-q code{background:var(--bg2);padding:4px 12px;border-radius:6px;font-family:monospace;font-size:16px;color:var(--green);border:1px solid var(--border)}
+.quiz-q code{background:var(--bg2);padding:4px 12px;border-radius:6px;font-family:monospace;font-size:15px;color:var(--green);border:1px solid var(--border)}
 .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:500px){.quiz-opts{grid-template-columns:1fr}}
 .qopt{padding:13px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:13px;color:var(--text2);text-align:left;line-height:1.4;transition:all .2s;font-family:'Segoe UI',sans-serif}
 .qopt:hover:not(:disabled){border-color:var(--green2);background:var(--green-pale);color:var(--green)}
 .qopt:disabled{cursor:default}
-.qopt.correct{background:var(--green-pale);border-color:var(--green3);color:var(--green)}
-.qopt.wrong{background:rgba(184,50,50,.07);border-color:var(--ppt);color:var(--ppt)}
+.qopt.correct{background:var(--mastered-bg);border-color:var(--mastered-border);color:var(--mastered)}
+.qopt.wrong{background:var(--unknown-bg);border-color:var(--unknown-border);color:var(--unknown)}
 .feedback{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:10px;font-size:13px;line-height:1.6;font-family:'Segoe UI',sans-serif}
-.feedback.ok{background:var(--green-pale);border:1px solid var(--green-light);color:var(--green)}
-.feedback.ko{background:rgba(184,50,50,.07);border:1px solid rgba(184,50,50,.3);color:var(--ppt)}
+.feedback.ok{background:var(--mastered-bg);border:1px solid var(--mastered-border);color:var(--mastered)}
+.feedback.ko{background:var(--unknown-bg);border:1px solid var(--unknown-border);color:var(--unknown)}
 .score-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:3rem 2rem;text-align:center}
 .score-ring{width:140px;height:140px;border-radius:50%;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:4px solid var(--green-light)}
 .score-n{font-size:36px;font-weight:700;color:#F5F0E8;font-family:'Georgia',serif}
 .score-d{font-size:12px;color:rgba(245,240,232,0.65);font-family:'Segoe UI',sans-serif}
 .score-pct{font-size:28px;font-weight:700;color:var(--green);margin-bottom:.5rem;font-family:'Georgia',serif}
 .score-msg{font-size:14px;color:var(--text3);margin-bottom:2rem;font-family:'Segoe UI',sans-serif}
-.form-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.75rem;margin-bottom:1.5rem}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-@media(max-width:500px){.form-grid{grid-template-columns:1fr}}
-.form-group{display:flex;flex-direction:column;gap:6px}
-.flabel{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);font-family:'Segoe UI',sans-serif}
-.finput,.fselect{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:'Segoe UI',sans-serif;width:100%;transition:border .15s}
-.finput:focus,.fselect:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,95,46,.08)}
-.finput::placeholder{color:var(--text4)}
-.fselect option{background:var(--surface)}
 .btn{padding:10px 22px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;font-family:'Segoe UI',sans-serif}
 .btn:hover{background:var(--bg2);color:var(--text)}
 .btn.primary{background:var(--green);border-color:var(--green);color:#F5F0E8}
 .btn.primary:hover{background:var(--green2)}
-.btn.sm{padding:5px 12px;font-size:11px}
-.btn.ghost-red{border-color:rgba(184,50,50,.25);color:var(--ppt)}
-.btn.ghost-red:hover{background:rgba(184,50,50,.07);border-color:var(--ppt)}
 .brow{display:flex;gap:8px;flex-wrap:wrap}
 .empty{padding:3rem 1rem;text-align:center;border:1px dashed var(--border2);border-radius:14px}
 .empty-t{font-size:14px;font-weight:600;color:var(--text3);margin-bottom:6px;font-family:'Georgia',serif}
@@ -154,7 +181,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.12);font-family:'Segoe UI',sans-serif}
 .toast.show{opacity:1}
 .toast.ok{background:var(--green-pale);color:var(--green);border:1px solid var(--green-light)}
-.toast.err{background:rgba(184,50,50,.08);color:var(--ppt);border:1px solid rgba(184,50,50,.3)}
+.toast.err{background:var(--unknown-bg);color:var(--unknown);border:1px solid var(--unknown-border)}
 </style>
 </head>
 <body>
@@ -168,8 +195,10 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
     </div>
   </div>
   <div class="header-stats">
-    <div class="hstat"><div class="hstat-n" id="stat-total">32</div><div class="hstat-l">Raccourcis</div></div>
-    <div class="hstat"><div class="hstat-n" id="stat-score">—</div><div class="hstat-l">Meilleur score</div></div>
+    <div class="hstat"><div class="hstat-n" id="stat-total">0</div><div class="hstat-l">Total</div></div>
+    <div class="hstat"><div class="hstat-n green" id="stat-mastered">0</div><div class="hstat-l">✓ Maîtrisés</div></div>
+    <div class="hstat"><div class="hstat-n yellow" id="stat-learning">0</div><div class="hstat-l">~ En cours</div></div>
+    <div class="hstat"><div class="hstat-n red" id="stat-unknown">0</div><div class="hstat-l">✗ À revoir</div></div>
   </div>
 </div>
 
@@ -177,118 +206,205 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
   <div class="nav-tab active" onclick="showTab('fiches')">Fiches</div>
   <div class="nav-tab" onclick="showTab('slide')">Mode slide</div>
   <div class="nav-tab" onclick="showTab('quiz')">Quiz</div>
-  <div class="nav-tab" onclick="showTab('ajouter')">+ Ajouter</div>
 </div>
 
 <div class="main">
   <div id="tab-fiches"></div>
   <div id="tab-slide" style="display:none"></div>
   <div id="tab-quiz" style="display:none"></div>
-  <div id="tab-ajouter" style="display:none"></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 const BASE=[
-  {id:1,cat:'excel',shortcut:'Ctrl + Shift + L',action:'Activer / désactiver les filtres automatiques',hint:'Indispensable pour trier les données dans un modèle'},
-  {id:2,cat:'excel',shortcut:'Alt + =',action:'Somme automatique (AutoSum)',hint:'Sélectionner les cellules avant'},
-  {id:3,cat:'excel',shortcut:'Ctrl + T',action:'Créer un tableau structuré',hint:'Formate et nomme automatiquement la plage'},
-  {id:4,cat:'excel',shortcut:'F4',action:'Répéter action / ancrer référence ($)',hint:'Bascule $A$1 → A$1 → $A1 → A1'},
-  {id:5,cat:'excel',shortcut:'Ctrl + Shift + $',action:'Appliquer le format monétaire',hint:''},
-  {id:6,cat:'excel',shortcut:'Ctrl + Shift + %',action:'Appliquer le format pourcentage',hint:''},
-  {id:7,cat:'excel',shortcut:'Ctrl + 1',action:'Ouvrir la boîte Format de cellule',hint:'Tous les formats en un raccourci'},
-  {id:8,cat:'excel',shortcut:'Alt + H + O + I',action:'Ajuster la largeur de colonne (auto-fit)',hint:'Séquence ruban'},
-  {id:9,cat:'excel',shortcut:'Ctrl + Shift + +',action:'Insérer une ligne ou colonne',hint:'Après sélection de la ligne entière'},
-  {id:10,cat:'excel',shortcut:'Ctrl + -',action:'Supprimer une ligne ou colonne',hint:''},
-  {id:11,cat:'excel',shortcut:'Ctrl + `',action:'Afficher / masquer les formules',hint:'Mode audit — très utile en due dil'},
-  {id:12,cat:'excel',shortcut:'F2',action:'Passer en mode édition de la cellule',hint:'Affiche les dépendances en couleur'},
-  {id:13,cat:'excel',shortcut:'Ctrl + Maj + Fin',action:"Sélectionner jusqu'à la dernière cellule utilisée",hint:''},
-  {id:14,cat:'excel',shortcut:'Ctrl + D',action:'Recopier vers le bas (Fill Down)',hint:''},
-  {id:15,cat:'excel',shortcut:'Ctrl + [',action:'Atteindre les antécédents directs',hint:'Navigation dans les formules complexes'},
-  {id:16,cat:'ppt',shortcut:'B / W',action:'Écran noir / blanc pendant la présentation',hint:'Masque temporairement le contenu'},
-  {id:17,cat:'ppt',shortcut:'Ctrl + G',action:'Grouper les objets sélectionnés',hint:''},
-  {id:18,cat:'ppt',shortcut:'Ctrl + Shift + G',action:'Dégrouper des objets',hint:''},
-  {id:19,cat:'ppt',shortcut:'Ctrl + D',action:'Dupliquer un objet',hint:'Conserve la position avec décalage'},
-  {id:20,cat:'ppt',shortcut:'F5',action:'Lancer le diaporama depuis le début',hint:''},
-  {id:21,cat:'ppt',shortcut:'Shift + F5',action:'Lancer depuis la diapositive courante',hint:'Indispensable en présentation live'},
-  {id:22,cat:'ppt',shortcut:'Ctrl + M',action:'Insérer une nouvelle diapositive',hint:''},
-  {id:23,cat:'ppt',shortcut:'Ctrl + Shift + C/V',action:"Copier / coller la mise en forme",hint:"Reproduire le style d'un objet"},
-  {id:24,cat:'ppt',shortcut:'Ctrl + Alt + V',action:'Collage spécial',hint:'Choisir le format de collage'},
-  {id:25,cat:'win',shortcut:'Win + D',action:'Afficher / masquer le bureau',hint:'Minimise toutes les fenêtres'},
-  {id:26,cat:'win',shortcut:'Win + L',action:'Verrouiller la session',hint:'Indispensable en salle de conférence'},
-  {id:27,cat:'win',shortcut:'Win + V',action:'Presse-papiers multi-éléments',hint:'Historique des copies'},
-  {id:28,cat:'win',shortcut:'Win + Shift + S',action:"Capture d'écran à rogner",hint:'Enregistre dans le presse-papiers'},
-  {id:29,cat:'win',shortcut:'Alt + Tab',action:'Basculer entre les fenêtres ouvertes',hint:'Garder Alt enfoncé pour choisir'},
-  {id:30,cat:'win',shortcut:'Win + ← / →',action:'Ancrer la fenêtre à gauche ou droite',hint:'Snap Windows'},
-  {id:31,cat:'win',shortcut:'Ctrl + Shift + Esc',action:'Ouvrir le Gestionnaire des tâches',hint:'Direct, sans Ctrl+Alt+Suppr'},
-  {id:32,cat:'win',shortcut:'Win + E',action:"Ouvrir l'Explorateur de fichiers",hint:''},
+  {id:1,cat:'excel',shortcut:'Ctrl + Flèche',action:'Se déplacer à la fin d\'une plage de données',hint:'Saute à la dernière cellule non vide'},
+  {id:2,cat:'excel',shortcut:'Ctrl + A',action:'Sélectionner toutes les données de la feuille',hint:''},
+  {id:3,cat:'excel',shortcut:'Ctrl + Page Up / Down',action:'Basculer entre les feuilles du classeur',hint:'Navigation rapide entre onglets'},
+  {id:4,cat:'excel',shortcut:'Ctrl + Espace',action:'Sélectionner toute la colonne active',hint:''},
+  {id:5,cat:'excel',shortcut:'Maj + Espace',action:'Sélectionner toute la ligne active',hint:''},
+  {id:6,cat:'excel',shortcut:'Ctrl + Maj + Flèche',action:'Sélectionner un bloc jusqu\'à la dernière cellule non vide',hint:''},
+  {id:7,cat:'excel',shortcut:'Ctrl + G',action:'Ouvrir la boîte de dialogue Atteindre',hint:'Aller à une cellule ou plage précise'},
+  {id:8,cat:'excel',shortcut:'Ctrl + Home',action:'Aller à la première cellule (A1)',hint:''},
+  {id:9,cat:'excel',shortcut:'Ctrl + Maj + Fin',action:'Sélectionner jusqu\'à la dernière cellule utilisée',hint:''},
+  {id:10,cat:'excel',shortcut:'Maj + Flèche',action:'Étendre la sélection cellule par cellule',hint:''},
+  {id:11,cat:'excel',shortcut:'Ctrl + Maj + Home',action:'Sélectionner de la cellule active jusqu\'à A1',hint:''},
+  {id:12,cat:'excel',shortcut:'Ctrl + Tab',action:'Naviguer entre plusieurs fichiers Excel ouverts',hint:''},
+  {id:13,cat:'excel',shortcut:'Ctrl + C / V',action:'Copier / Coller',hint:''},
+  {id:14,cat:'excel',shortcut:'Ctrl + X',action:'Couper une cellule',hint:''},
+  {id:15,cat:'excel',shortcut:'Ctrl + D',action:'Recopier vers le bas (Fill Down)',hint:''},
+  {id:16,cat:'excel',shortcut:'Ctrl + R',action:'Recopier vers la droite (Fill Right)',hint:''},
+  {id:17,cat:'excel',shortcut:'Ctrl + Alt + V',action:'Ouvrir le collage spécial',hint:'Choisir valeurs, formats, formules…'},
+  {id:18,cat:'excel',shortcut:'Ctrl + Alt + V + V',action:'Collage spécial — valeurs uniquement',hint:'Supprime les formules, garde le résultat'},
+  {id:19,cat:'excel',shortcut:'Ctrl + Alt + V + T',action:'Collage spécial — formats uniquement',hint:''},
+  {id:20,cat:'excel',shortcut:'Ctrl + Alt + V + F',action:'Collage spécial — formules uniquement',hint:''},
+  {id:21,cat:'excel',shortcut:'Alt + E + S + W',action:'Coller les largeurs de colonnes copiées',hint:'Harmoniser deux tableaux'},
+  {id:22,cat:'excel',shortcut:'Ctrl + Shift + +',action:'Insérer une ligne, colonne ou cellule',hint:'Après sélection de la ligne entière'},
+  {id:23,cat:'excel',shortcut:'Ctrl + -',action:'Supprimer une ligne, colonne ou cellule',hint:''},
+  {id:24,cat:'excel',shortcut:'Ctrl + T',action:'Créer un tableau structuré',hint:'Formate et nomme automatiquement la plage'},
+  {id:25,cat:'excel',shortcut:'Ctrl + Shift + L',action:'Activer / désactiver les filtres automatiques',hint:'Indispensable pour trier les données'},
+  {id:26,cat:'excel',shortcut:'Alt + A + M',action:'Supprimer les doublons',hint:''},
+  {id:27,cat:'excel',shortcut:'Alt + E + M',action:'Déplacer ou copier une feuille',hint:''},
+  {id:28,cat:'excel',shortcut:'F2',action:'Passer en mode édition de la cellule',hint:'Affiche les dépendances en couleur'},
+  {id:29,cat:'excel',shortcut:'Ctrl + Shift + Enter',action:'Valider une formule matricielle',hint:'Affiche des accolades {} autour de la formule'},
+  {id:30,cat:'excel',shortcut:'Alt + =',action:'Somme automatique (AutoSum)',hint:'Sélectionner les cellules avant'},
+  {id:31,cat:'excel',shortcut:'F4',action:'Ancrer une référence ($) / répéter action',hint:'Bascule $A$1 → A$1 → $A1 → A1'},
+  {id:32,cat:'excel',shortcut:'Ctrl + `',action:'Afficher / masquer les formules',hint:'Mode audit — très utile en due dil'},
+  {id:33,cat:'excel',shortcut:'Ctrl + Alt + F9',action:'Forcer le recalcul de toutes les feuilles',hint:'Utile sur les modèles lourds'},
+  {id:34,cat:'excel',shortcut:'Alt + M + P',action:'Tracer les précédents (cellules source)',hint:'Flèches bleues vers les antécédents'},
+  {id:35,cat:'excel',shortcut:'Alt + M + D',action:'Tracer les dépendants (cellules impactées)',hint:'Flèches bleues vers les dépendants'},
+  {id:36,cat:'excel',shortcut:'Ctrl + [',action:'Atteindre les antécédents directs',hint:''},
+  {id:37,cat:'excel',shortcut:'Ctrl + ]',action:'Atteindre les dépendants directs',hint:''},
+  {id:38,cat:'excel',shortcut:'Shift + F3',action:'Ouvrir l\'assistant de fonction',hint:''},
+  {id:39,cat:'excel',shortcut:'Ctrl + Shift + U',action:'Agrandir / réduire la barre de formule',hint:''},
+  {id:40,cat:'excel',shortcut:'Ctrl + ;',action:'Insérer la date du jour',hint:''},
+  {id:41,cat:'excel',shortcut:'Ctrl + Shift + ;',action:'Insérer l\'heure actuelle',hint:''},
+  {id:42,cat:'excel',shortcut:'Alt + Enter',action:'Insérer un saut de ligne dans une cellule',hint:''},
+  {id:43,cat:'excel',shortcut:'F9',action:'Recalculer tous les onglets',hint:''},
+  {id:44,cat:'excel',shortcut:'Ctrl + F3',action:'Gérer les noms définis (plages nommées)',hint:''},
+  {id:45,cat:'excel',shortcut:'Alt + M + A + A',action:'Supprimer toutes les flèches de traçage',hint:''},
+  {id:46,cat:'excel',shortcut:'Ctrl + B',action:'Mettre en gras',hint:''},
+  {id:47,cat:'excel',shortcut:'Ctrl + I',action:'Mettre en italique',hint:''},
+  {id:48,cat:'excel',shortcut:'Ctrl + U',action:'Souligner',hint:''},
+  {id:49,cat:'excel',shortcut:'Ctrl + 1',action:'Ouvrir la boîte Format de cellule',hint:'Tous les formats en un raccourci'},
+  {id:50,cat:'excel',shortcut:'Ctrl + Shift + $',action:'Appliquer le format monétaire',hint:''},
+  {id:51,cat:'excel',shortcut:'Ctrl + Shift + %',action:'Appliquer le format pourcentage',hint:''},
+  {id:52,cat:'excel',shortcut:'Ctrl + Shift + #',action:'Appliquer le format de date',hint:''},
+  {id:53,cat:'excel',shortcut:'Alt + H + O + I',action:'Ajuster la largeur de colonne (auto-fit)',hint:'Séquence ruban'},
+  {id:54,cat:'excel',shortcut:'Alt + H + B',action:'Ajouter des bordures aux cellules',hint:''},
+  {id:55,cat:'excel',shortcut:'Alt + H + A + C',action:'Centrer le texte dans les cellules',hint:''},
+  {id:56,cat:'excel',shortcut:'Alt + H + A + L',action:'Aligner le texte à gauche',hint:''},
+  {id:57,cat:'excel',shortcut:'Alt + H + J',action:'Fusionner et centrer les cellules',hint:''},
+  {id:58,cat:'excel',shortcut:'Alt + N + V',action:'Insérer un tableau croisé dynamique',hint:''},
+  {id:59,cat:'excel',shortcut:'Alt + D + G + G',action:'Grouper des lignes ou colonnes',hint:''},
+  {id:60,cat:'excel',shortcut:'Alt + W + F + F',action:'Geler les volets',hint:'Verrouiller des lignes ou colonnes en haut'},
+  {id:61,cat:'excel',shortcut:'Alt + A + V + V',action:'Accéder à la validation des données',hint:''},
+  {id:62,cat:'excel',shortcut:'Alt + A + F',action:'Supprimer les filtres appliqués',hint:''},
+  {id:63,cat:'excel',shortcut:'Alt + F1',action:'Créer un graphique intégré',hint:''},
+  {id:64,cat:'excel',shortcut:'F11',action:'Créer un graphique sur une nouvelle feuille',hint:''},
+  {id:65,cat:'excel',shortcut:'Ctrl + S',action:'Enregistrer le classeur',hint:''},
+  {id:66,cat:'excel',shortcut:'F12',action:'Enregistrer sous',hint:''},
+  {id:67,cat:'excel',shortcut:'Ctrl + P',action:'Ouvrir la boîte de dialogue d\'impression',hint:''},
+  {id:68,cat:'excel',shortcut:'Ctrl + Z',action:'Annuler la dernière action',hint:'Excel mémorise les 100 dernières actions'},
+  {id:69,cat:'excel',shortcut:'Ctrl + Y',action:'Rétablir l\'action annulée',hint:''},
+  {id:70,cat:'excel',shortcut:'Ctrl + F',action:'Rechercher dans le classeur',hint:''},
+  {id:71,cat:'excel',shortcut:'Ctrl + H',action:'Rechercher et remplacer',hint:''},
+  {id:72,cat:'excel',shortcut:'Ctrl + K',action:'Insérer un lien hypertexte',hint:''},
+  {id:73,cat:'excel',shortcut:'Alt + E + L',action:'Supprimer les liens hypertextes',hint:''},
+  {id:74,cat:'ppt',shortcut:'B / W',action:'Écran noir / blanc pendant la présentation',hint:''},
+  {id:75,cat:'ppt',shortcut:'Ctrl + G',action:'Grouper les objets sélectionnés',hint:''},
+  {id:76,cat:'ppt',shortcut:'Ctrl + Shift + G',action:'Dégrouper des objets',hint:''},
+  {id:77,cat:'ppt',shortcut:'Ctrl + D',action:'Dupliquer un objet',hint:'Conserve la position avec décalage'},
+  {id:78,cat:'ppt',shortcut:'F5',action:'Lancer le diaporama depuis le début',hint:''},
+  {id:79,cat:'ppt',shortcut:'Shift + F5',action:'Lancer depuis la diapositive courante',hint:'Indispensable en présentation live'},
+  {id:80,cat:'ppt',shortcut:'Ctrl + M',action:'Insérer une nouvelle diapositive',hint:''},
+  {id:81,cat:'ppt',shortcut:'Ctrl + Shift + C/V',action:'Copier / coller la mise en forme',hint:"Reproduire le style d'un objet"},
+  {id:82,cat:'ppt',shortcut:'Ctrl + Alt + V',action:'Collage spécial PPT',hint:'Choisir le format de collage'},
+  {id:83,cat:'win',shortcut:'Win + D',action:'Afficher / masquer le bureau',hint:''},
+  {id:84,cat:'win',shortcut:'Win + L',action:'Verrouiller la session',hint:'Indispensable en salle de conférence'},
+  {id:85,cat:'win',shortcut:'Win + V',action:'Presse-papiers multi-éléments',hint:'Historique des copies'},
+  {id:86,cat:'win',shortcut:'Win + Shift + S',action:"Capture d'écran à rogner",hint:''},
+  {id:87,cat:'win',shortcut:'Alt + Tab',action:'Basculer entre les fenêtres ouvertes',hint:''},
+  {id:88,cat:'win',shortcut:'Win + ← / →',action:'Ancrer la fenêtre à gauche ou droite',hint:'Snap Windows'},
+  {id:89,cat:'win',shortcut:'Ctrl + Shift + Esc',action:'Ouvrir le Gestionnaire des tâches',hint:''},
+  {id:90,cat:'win',shortcut:'Win + E',action:"Ouvrir l'Explorateur de fichiers",hint:''},
 ];
 
-const CLABELS={excel:'Excel',ppt:'PowerPoint',win:'Windows',custom:'Excel'};
-const CBADGE={excel:'cbx-excel',ppt:'cbx-ppt',win:'cbx-win',custom:'cbx-excel'};
-const CATBAR={excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win',custom:'cbar-excel'};
-
-let custom=JSON.parse(localStorage.getItem('ma_custom')||'[]');
-let nextId=parseInt(localStorage.getItem('ma_nextid')||'1000');
+let levels=JSON.parse(localStorage.getItem('ma_levels')||'{}');
 let flipped=new Set();
 let currentFilter='all';
-let slideIdx=0,slideFlipped=false,slideFilter='all';
+let levelFilter='all';
+let searchQuery='';
+let slideIdx=0,slideFlipped=false,slideFilter='all',slideLevelFilter='all';
 let quizState=null,quizResults=[],quizMode='shortcut';
-let editingId=null;
 let bestScore=parseInt(localStorage.getItem('ma_best')||'0');
+let activePicker=null;
 
-function save(){localStorage.setItem('ma_custom',JSON.stringify(custom));localStorage.setItem('ma_nextid',String(nextId));}
-function all(){return[...BASE,...custom];}
-function filtered(f){return f==='all'?all():all().filter(d=>d.cat===f);}
-function catLabel(cat){return{excel:'Excel',ppt:'PowerPoint',win:'Windows'}[cat]||'Excel';}
-function catBadge(cat){return{excel:'cbx-excel',ppt:'cbx-ppt',win:'cbx-win'}[cat]||'cbx-excel';}
-function catBar(cat){return{excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win'}[cat]||'cbar-excel';}
+function saveLevels(){localStorage.setItem('ma_levels',JSON.stringify(levels));}
+function all(){return BASE;}
+function getLevel(id){return levels[id]||'unset';}
+function setLevel(id,lv){if(lv==='unset')delete levels[id];else levels[id]=lv;saveLevels();updateStats();}
+
+function filteredCards(f,lf,q){
+  let cards=f==='all'?all():all().filter(d=>d.cat===f);
+  if(lf&&lf!=='all')cards=cards.filter(d=>getLevel(d.id)===lf);
+  if(q){const ql=q.toLowerCase();cards=cards.filter(d=>d.shortcut.toLowerCase().includes(ql)||d.action.toLowerCase().includes(ql)||(d.hint&&d.hint.toLowerCase().includes(ql)));}
+  return cards;
+}
+
+function catLabel(c){return{excel:'Excel',ppt:'PowerPoint',win:'Windows'}[c]||'Excel';}
+function catBadge(c){return{excel:'cbx-excel',ppt:'cbx-ppt',win:'cbx-win'}[c]||'cbx-excel';}
+function catBar(c){return{excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win'}[c]||'cbar-excel';}
+function badge(c){return`<span class="cbadge ${catBadge(c)}">${catLabel(c)}</span>`;}
+const LV_LABEL={mastered:'Maîtrisé',learning:'En cours',unknown:'À revoir',unset:'Non évalué'};
+const LV_DOT={mastered:'dot-mastered',learning:'dot-learning',unknown:'dot-unknown',unset:'dot-unset'};
 
 function updateStats(){
-  document.getElementById('stat-total').textContent=all().length;
-  document.getElementById('stat-score').textContent=bestScore?bestScore+'%':'—';
+  const a=all();
+  document.getElementById('stat-total').textContent=a.length;
+  document.getElementById('stat-mastered').textContent=a.filter(d=>getLevel(d.id)==='mastered').length;
+  document.getElementById('stat-learning').textContent=a.filter(d=>getLevel(d.id)==='learning').length;
+  document.getElementById('stat-unknown').textContent=a.filter(d=>getLevel(d.id)==='unknown').length;
 }
-function badge(cat){return`<span class="cbadge ${catBadge(cat)}">${catLabel(cat)}</span>`;}
 
 function showTab(t){
-  ['fiches','slide','quiz','ajouter'].forEach(x=>{document.getElementById('tab-'+x).style.display=x===t?'block':'none';});
-  document.querySelectorAll('.nav-tab').forEach((el,i)=>{el.classList.toggle('active',['fiches','slide','quiz','ajouter'][i]===t);});
+  ['fiches','slide','quiz'].forEach(x=>{document.getElementById('tab-'+x).style.display=x===t?'block':'none';});
+  document.querySelectorAll('.nav-tab').forEach((el,i)=>{el.classList.toggle('active',['fiches','slide','quiz'][i]===t);});
   if(t==='fiches')renderFiches();
   if(t==='slide'){slideIdx=0;slideFlipped=false;renderSlide();}
   if(t==='quiz')renderQuizModeSelect();
-  if(t==='ajouter')renderAjouter();
 }
 
+// ── FICHES ──
 function renderFiches(){
-  const cards=filtered(currentFilter);
+  const cards=filteredCards(currentFilter,levelFilter,searchQuery);
   const cnt=f=>all().filter(c=>c.cat===f).length;
-  let html=`<div class="filter-bar">
+  const lvCnt=lv=>all().filter(d=>getLevel(d.id)===lv).length;
+  const hl=(str)=>{
+    if(!searchQuery||!str)return str||'';
+    const re=new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+    return str.replace(re,'<mark style="background:#FEF08A;border-radius:2px;padding:0 1px">$1</mark>');
+  };
+  let html=`
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="search-input" placeholder="Rechercher un raccourci ou une action…" value="${searchQuery.replace(/"/g,'&quot;')}" oninput="onSearch(this.value)" autocomplete="off">
+    <button class="search-clear${searchQuery?' show':''}" onclick="clearSearch()">✕</button>
+  </div>
+  <div class="filter-bar">
     <button class="filter-btn fb-all ${currentFilter==='all'?'on':''}" onclick="setFilter('all')">Tous (${all().length})</button>
     <button class="filter-btn fb-excel ${currentFilter==='excel'?'on':''}" onclick="setFilter('excel')">Excel (${cnt('excel')})</button>
     <button class="filter-btn fb-ppt ${currentFilter==='ppt'?'on':''}" onclick="setFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
     <button class="filter-btn fb-win ${currentFilter==='win'?'on':''}" onclick="setFilter('win')">Windows (${cnt('win')})</button>
   </div>
-  <div class="stitle">Fiches de révision — cliquer pour retourner</div>
+  <div class="level-bar">
+    <button class="lbtn ${levelFilter==='all'?'on-unset':''}" onclick="setLevelFilter('all')"><span class="dot dot-unset"></span>Tous</button>
+    <button class="lbtn ${levelFilter==='mastered'?'on-mastered':''}" onclick="setLevelFilter('mastered')"><span class="dot dot-mastered"></span>Maîtrisé (${lvCnt('mastered')})</button>
+    <button class="lbtn ${levelFilter==='learning'?'on-learning':''}" onclick="setLevelFilter('learning')"><span class="dot dot-learning"></span>En cours (${lvCnt('learning')})</button>
+    <button class="lbtn ${levelFilter==='unknown'?'on-unknown':''}" onclick="setLevelFilter('unknown')"><span class="dot dot-unknown"></span>À revoir (${lvCnt('unknown')})</button>
+    <button class="lbtn ${levelFilter==='unset'?'on-unset':''}" onclick="setLevelFilter('unset')"><span class="dot dot-unset"></span>Non évalué (${all().filter(d=>getLevel(d.id)==='unset').length})</button>
+  </div>
+  ${searchQuery?`<div class="search-count">${cards.length} résultat${cards.length!==1?'s':''} pour « ${searchQuery} »</div>`:''}
+  <div class="stitle">Cliquer pour retourner · point coloré pour évaluer</div>
   <div class="cards-grid">`;
+
   if(!cards.length){
-    html+=`<div class="empty" style="grid-column:1/-1"><div class="empty-t">Aucune fiche</div><div class="empty-s">Ajoutez des raccourcis via "+ Ajouter"</div></div>`;
+    html+=`<div class="empty" style="grid-column:1/-1"><div class="empty-t">Aucune fiche</div><div class="empty-s">${searchQuery?`Aucun résultat pour « ${searchQuery} »`:'Modifiez les filtres'}</div></div>`;
   } else {
     cards.forEach(d=>{
-      const isC=!!custom.find(c=>c.id===d.id);
-      html+=`<div class="card-wrap${flipped.has(d.id)?' flipped':''}" onclick="flipCard(${d.id})">
+      const lv=getLevel(d.id);
+      html+=`<div class="card-wrap lv-${lv}${flipped.has(d.id)?' flipped':''}" id="cw-${d.id}" onclick="handleCardClick(event,${d.id})">
         <div class="card-inner">
           <div class="card-face card-front">
             <div class="cat-bar ${catBar(d.cat)}"></div>
             <div class="card-top">
-              ${badge(d.cat)}
-              ${isC?`<div onclick="event.stopPropagation()" style="display:flex;gap:3px">
-                <button class="ibtn" onclick="editCard(${d.id})">✏</button>
-                <button class="ibtn del" onclick="deleteCard(${d.id})">✕</button>
-              </div>`:''}
+              <div class="card-top-left">
+                ${badge(d.cat)}
+                <span class="lv-flag ${lv}" onclick="event.stopPropagation();togglePicker(event,${d.id})" title="Évaluer"></span>
+              </div>
             </div>
-            <div class="card-shortcut">${d.shortcut}</div>
-            <div class="card-hint">${d.hint||'&nbsp;'}</div>
+            <div class="card-shortcut">${hl(d.shortcut)}</div>
+            <div class="card-hint">${hl(d.hint)||'&nbsp;'}</div>
             <div class="card-flip-hint">retourner →</div>
           </div>
           <div class="card-face card-back">
@@ -302,46 +418,100 @@ function renderFiches(){
   }
   html+='</div>';
   document.getElementById('tab-fiches').innerHTML=html;
+  if(searchQuery){const inp=document.getElementById('search-input');if(inp){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length);}}
   updateStats();
 }
+
+function onSearch(v){searchQuery=v;renderFiches();}
+function clearSearch(){searchQuery='';renderFiches();}
+function handleCardClick(e,id){if(activePicker){closePicker();return;}flipCard(id);}
 function flipCard(id){if(flipped.has(id))flipped.delete(id);else flipped.add(id);renderFiches();}
 function setFilter(f){currentFilter=f;renderFiches();}
+function setLevelFilter(lf){levelFilter=lf;renderFiches();}
 
+// ── PICKER ──
+function isMobile(){return window.innerWidth<=640||('ontouchstart' in window);}
+function togglePicker(e,id){
+  e.stopPropagation();
+  if(activePicker===id){closePicker();return;}
+  closePicker();
+  activePicker=id;
+  if(isMobile()){openSheet(id);}
+  else{
+    const wrap=document.getElementById('cw-'+id);
+    const tl=wrap.querySelector('.card-top-left');
+    const picker=document.createElement('div');
+    picker.className='lv-picker';picker.id='picker-'+id;
+    [{lv:'mastered',label:'✓ Maîtrisé'},{lv:'learning',label:'~ En cours'},{lv:'unknown',label:'✗ À revoir'},{lv:'unset',label:'◌ Non évalué'}].forEach(o=>{
+      const btn=document.createElement('button');
+      btn.className='lv-picker-opt';
+      btn.innerHTML=`<span class="dot ${LV_DOT[o.lv]}"></span>${o.label}`;
+      btn.onclick=(ev)=>{ev.stopPropagation();setLevel(id,o.lv);closePicker();renderFiches();};
+      picker.appendChild(btn);
+    });
+    tl.appendChild(picker);
+    setTimeout(()=>document.addEventListener('click',closePicker,{once:true}),10);
+  }
+}
+function openSheet(id){
+  const cur=getLevel(id);
+  const overlay=document.createElement('div');
+  overlay.className='lv-sheet-overlay';overlay.id='lv-sheet-overlay';
+  overlay.innerHTML=`<div class="lv-sheet">
+    <div class="lv-sheet-handle"></div>
+    <div class="lv-sheet-title">Évaluer ce raccourci</div>
+    <div class="lv-sheet-opts">
+      ${[{lv:'mastered',label:'✓ Maîtrisé',cls:'opt-mastered'},{lv:'learning',label:'~ En cours',cls:'opt-learning'},{lv:'unknown',label:'✗ À revoir',cls:'opt-unknown'},{lv:'unset',label:'◌ Non évalué',cls:''}].map(o=>`
+      <button class="lv-sheet-opt ${o.cls}" onclick="pickSheet(${id},'${o.lv}')">
+        <span class="dot ${LV_DOT[o.lv]}"></span>${o.label}${cur===o.lv?' ✓':''}
+      </button>`).join('')}
+    </div>
+  </div>`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closePicker();});
+  document.body.appendChild(overlay);
+}
+function pickSheet(id,lv){setLevel(id,lv);closePicker();renderFiches();}
+function closePicker(){
+  if(activePicker){
+    const p=document.getElementById('picker-'+activePicker);if(p)p.remove();
+    const o=document.getElementById('lv-sheet-overlay');if(o)o.remove();
+    activePicker=null;
+  }
+}
+
+// ── SLIDE ──
 function renderSlide(){
-  const cards=filtered(slideFilter);
+  const cards=filteredCards(slideFilter,slideLevelFilter,'');
   const el=document.getElementById('tab-slide');
-  if(!cards.length){el.innerHTML=`<div class="empty"><div class="empty-t">Aucune fiche</div></div>`;return;}
+  const cnt=f=>all().filter(c=>c.cat===f).length;
+  const lvCnt=lv=>all().filter(d=>getLevel(d.id)===lv).length;
+  if(!cards.length){
+    el.innerHTML=`${slideFilterBar()}${slideLevelBar()}<div class="empty"><div class="empty-t">Aucune fiche</div><div class="empty-s">Modifiez les filtres</div></div>`;
+    return;
+  }
   const idx=Math.min(slideIdx,cards.length-1);
   const d=cards[idx];
+  const lv=getLevel(d.id);
   const dots=cards.length<=20?cards.map((_,i)=>`<div class="sdot${i===idx?' on':''}" onclick="goSlide(${i})"></div>`).join(''):`<span class="slide-counter">${idx+1} / ${cards.length}</span>`;
-
-  let html=`<div class="filter-bar">
-    <button class="filter-btn fb-all ${slideFilter==='all'?'on':''}" onclick="setSlideFilter('all')">Tous</button>
-    <button class="filter-btn fb-excel ${slideFilter==='excel'?'on':''}" onclick="setSlideFilter('excel')">Excel</button>
-    <button class="filter-btn fb-ppt ${slideFilter==='ppt'?'on':''}" onclick="setSlideFilter('ppt')">PowerPoint</button>
-    <button class="filter-btn fb-win ${slideFilter==='win'?'on':''}" onclick="setSlideFilter('win')">Windows</button>
-  </div>
+  el.innerHTML=`
+  ${slideFilterBar()}
+  ${slideLevelBar()}
   <div class="stitle">Mode slide</div>
   <div style="max-width:640px;margin:0 auto">
     <div class="big-card${slideFlipped?' flipped':''}" onclick="toggleSlideFlip()">
       <div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
-          ${badge(d.cat)}
+          <div style="display:flex;align-items:center;gap:8px">
+            ${badge(d.cat)}
+            ${lv!=='unset'?`<span style="font-size:11px;padding:2px 8px;border-radius:10px;font-family:sans-serif;background:var(--${lv}-bg);color:var(--${lv});border:1px solid var(--${lv}-border)">${LV_LABEL[lv]}</span>`:''}
+          </div>
           <span style="font-size:12px;color:${slideFlipped?'rgba(245,240,232,0.5)':'var(--text4)'};font-family:sans-serif">${idx+1} / ${cards.length}</span>
         </div>
         <div class="cat-bar ${catBar(d.cat)}" style="margin-top:10px"></div>
       </div>
       ${!slideFlipped
-        ?`<div class="flip-zone">
-            <div class="big-shortcut">${d.shortcut}</div>
-            ${d.hint?`<div class="big-hint">${d.hint}</div>`:''}
-            <div class="flip-tip">Entrée ou clic pour voir l'action →</div>
-          </div>`
-        :`<div class="flip-zone">
-            <div class="big-action">${d.action}</div>
-            <div class="big-sub">${d.shortcut}</div>
-            <div class="flip-tip-inv">Entrée ou clic pour retourner ←</div>
-          </div>`
+        ?`<div class="flip-zone"><div class="big-shortcut">${d.shortcut}</div>${d.hint?`<div class="big-hint">${d.hint}</div>`:''}<div class="flip-tip">Entrée ou clic pour voir l'action →</div></div>`
+        :`<div class="flip-zone"><div class="big-action">${d.action}</div><div class="big-sub">${d.shortcut}</div><div class="flip-tip-inv">Entrée ou clic pour retourner ←</div></div>`
       }
     </div>
     <div class="slide-nav">
@@ -349,170 +519,138 @@ function renderSlide(){
       <div class="slide-dots">${dots}</div>
       <button class="snav-btn" onclick="nextSlide()" ${idx===cards.length-1?'disabled':''}>Suivant →</button>
     </div>
+    <div class="slide-level-row">
+      <button class="slbtn${lv==='mastered'?' active-mastered':''}" onclick="setSlideLv('mastered')"><span class="dot dot-mastered"></span>Maîtrisé</button>
+      <button class="slbtn${lv==='learning'?' active-learning':''}" onclick="setSlideLv('learning')"><span class="dot dot-learning"></span>En cours</button>
+      <button class="slbtn${lv==='unknown'?' active-unknown':''}" onclick="setSlideLv('unknown')"><span class="dot dot-unknown"></span>À revoir</button>
+    </div>
     <div class="kbd-hint">
       <span><span class="kbd">←</span> Précédent</span>
       <span><span class="kbd">Entrée</span> Retourner</span>
       <span><span class="kbd">→</span> Suivant</span>
+      <span><span class="kbd">1/2/3</span> Évaluer</span>
     </div>
   </div>`;
-  el.innerHTML=html;
-
   let tx=0;
   const bc=el.querySelector('.big-card');
   bc.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
   bc.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){if(dx<0)nextSlide();else prevSlide();}},{passive:true});
 }
+
+function slideFilterBar(){
+  const cnt=f=>all().filter(c=>c.cat===f).length;
+  return `<div class="filter-bar">
+    <button class="filter-btn fb-all ${slideFilter==='all'?'on':''}" onclick="setSlideFilter('all')">Tous</button>
+    <button class="filter-btn fb-excel ${slideFilter==='excel'?'on':''}" onclick="setSlideFilter('excel')">Excel (${cnt('excel')})</button>
+    <button class="filter-btn fb-ppt ${slideFilter==='ppt'?'on':''}" onclick="setSlideFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
+    <button class="filter-btn fb-win ${slideFilter==='win'?'on':''}" onclick="setSlideFilter('win')">Windows (${cnt('win')})</button>
+  </div>`;
+}
+function slideLevelBar(){
+  return `<div class="level-bar">
+    <button class="lbtn ${slideLevelFilter==='all'?'on-unset':''}" onclick="setSlideLevelFilter('all')"><span class="dot dot-unset"></span>Tous</button>
+    <button class="lbtn ${slideLevelFilter==='mastered'?'on-mastered':''}" onclick="setSlideLevelFilter('mastered')"><span class="dot dot-mastered"></span>Maîtrisé</button>
+    <button class="lbtn ${slideLevelFilter==='learning'?'on-learning':''}" onclick="setSlideLevelFilter('learning')"><span class="dot dot-learning"></span>En cours</button>
+    <button class="lbtn ${slideLevelFilter==='unknown'?'on-unknown':''}" onclick="setSlideLevelFilter('unknown')"><span class="dot dot-unknown"></span>À revoir</button>
+    <button class="lbtn ${slideLevelFilter==='unset'?'on-unset':''}" onclick="setSlideLevelFilter('unset')"><span class="dot dot-unset"></span>Non évalué</button>
+  </div>`;
+}
+function setSlideLv(lv){
+  const cards=filteredCards(slideFilter,slideLevelFilter,'');
+  if(!cards.length)return;
+  const d=cards[Math.min(slideIdx,cards.length-1)];
+  const cur=getLevel(d.id);
+  setLevel(d.id,cur===lv?'unset':lv);
+  renderSlide();
+}
 function goSlide(i){slideIdx=i;slideFlipped=false;renderSlide();}
 function prevSlide(){if(slideIdx>0){slideIdx--;slideFlipped=false;renderSlide();}}
-function nextSlide(){const cards=filtered(slideFilter);if(slideIdx<cards.length-1){slideIdx++;slideFlipped=false;renderSlide();}}
+function nextSlide(){const cards=filteredCards(slideFilter,slideLevelFilter,'');if(slideIdx<cards.length-1){slideIdx++;slideFlipped=false;renderSlide();}}
 function toggleSlideFlip(){slideFlipped=!slideFlipped;renderSlide();}
 function setSlideFilter(f){slideFilter=f;slideIdx=0;slideFlipped=false;renderSlide();}
+function setSlideLevelFilter(lf){slideLevelFilter=lf;slideIdx=0;slideFlipped=false;renderSlide();}
 
 document.addEventListener('keydown',e=>{
-  const slideVisible=document.getElementById('tab-slide').style.display!=='none';
-  if(!slideVisible)return;
+  const sv=document.getElementById('tab-slide').style.display!=='none';
+  if(!sv)return;
   if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleSlideFlip();}
   if(e.key==='ArrowRight'){e.preventDefault();nextSlide();}
   if(e.key==='ArrowLeft'){e.preventDefault();prevSlide();}
+  if(e.key==='1')setSlideLv('mastered');
+  if(e.key==='2')setSlideLv('learning');
+  if(e.key==='3')setSlideLv('unknown');
 });
 
+// ── QUIZ ──
 function renderQuizModeSelect(){
   document.getElementById('tab-quiz').innerHTML=`
   <div class="stitle">Choisir le mode de quiz</div>
   <div class="quiz-mode-sel">
-    <div class="qmode-btn${quizMode==='shortcut'?' selected':''}" onclick="selectQMode('shortcut')">
-      <div class="qmode-title">Raccourci → Action</div>
-      <div class="qmode-sub">On vous montre le raccourci, trouvez ce qu'il fait</div>
-    </div>
-    <div class="qmode-btn${quizMode==='action'?' selected':''}" onclick="selectQMode('action')">
-      <div class="qmode-title">Action → Raccourci</div>
-      <div class="qmode-sub">On vous décrit l'action, trouvez le raccourci</div>
-    </div>
-    <div class="qmode-btn${quizMode==='mixed'?' selected':''}" onclick="selectQMode('mixed')">
-      <div class="qmode-title">Mode mixte</div>
-      <div class="qmode-sub">Les deux sens mélangés aléatoirement</div>
-    </div>
+    <div class="qmode-btn${quizMode==='shortcut'?' selected':''}" onclick="selectQMode('shortcut')"><div class="qmode-title">Raccourci → Action</div><div class="qmode-sub">On vous montre le raccourci, trouvez ce qu'il fait</div></div>
+    <div class="qmode-btn${quizMode==='action'?' selected':''}" onclick="selectQMode('action')"><div class="qmode-title">Action → Raccourci</div><div class="qmode-sub">On vous décrit l'action, trouvez le raccourci</div></div>
+    <div class="qmode-btn${quizMode==='mixed'?' selected':''}" onclick="selectQMode('mixed')"><div class="qmode-title">Mode mixte</div><div class="qmode-sub">Les deux sens mélangés aléatoirement</div></div>
+    <div class="qmode-btn${quizMode==='unknown'?' selected':''}" onclick="selectQMode('unknown')"><div class="qmode-title">🔴 À revoir uniquement</div><div class="qmode-sub">Travailler uniquement les raccourcis marqués "à revoir"</div></div>
   </div>
   <button class="btn primary" onclick="startQuiz()">Lancer le quiz →</button>`;
 }
 function selectQMode(m){quizMode=m;renderQuizModeSelect();}
-
 function startQuiz(){
-  const pool=all();if(pool.length<4){showToast('Pas assez de fiches','err');return;}
+  let pool=all();
+  if(quizMode==='unknown')pool=pool.filter(d=>getLevel(d.id)==='unknown');
+  if(pool.length<4){showToast(quizMode==='unknown'?'Pas assez de fiches "À revoir"':'Pas assez de fiches','err');return;}
   quizResults=[];
-  quizState={questions:shuffle(pool).slice(0,Math.min(12,pool.length)),idx:0,answered:false,chosen:null};
+  const mode=quizMode==='unknown'?'mixed':quizMode;
+  quizState={questions:shuffle(pool).slice(0,Math.min(12,pool.length)),idx:0,answered:false,chosen:null,mode};
   renderQuiz();
 }
-function getType(idx){if(quizMode==='shortcut')return'shortcut';if(quizMode==='action')return'action';return idx%2===0?'shortcut':'action';}
-
+function getQType(i,mode){if(mode==='shortcut')return'shortcut';if(mode==='action')return'action';return i%2===0?'shortcut':'action';}
 function renderQuiz(){
   const el=document.getElementById('tab-quiz');
   if(!quizState){renderQuizModeSelect();return;}
-  const{questions,idx,answered,chosen}=quizState;
+  const{questions,idx,answered,chosen,mode}=quizState;
   if(idx>=questions.length){
     const score=quizResults.filter(r=>r).length;
     const pct=Math.round(score/quizResults.length*100);
-    if(pct>bestScore){bestScore=pct;localStorage.setItem('ma_best',String(bestScore));updateStats();}
-    const msg=pct>=80?'Excellent ! Vous maîtrisez les raccourcis.':pct>=60?'Très bien ! Encore un peu de pratique.':pct>=40?'Pas mal ! Continuez à réviser.':'Continuez, vous y êtes presque !';
-    el.innerHTML=`<div class="score-box">
-      <div class="score-ring"><div class="score-n">${score}/${quizResults.length}</div><div class="score-d">réponses</div></div>
-      <div class="score-pct">${pct}%</div>
-      <div class="score-msg">${msg}</div>
-      <div class="brow" style="justify-content:center">
-        <button class="btn primary" onclick="startQuiz()">Rejouer</button>
-        <button class="btn" onclick="renderQuizModeSelect()">Changer de mode</button>
-        <button class="btn" onclick="showTab('fiches')">Revoir les fiches</button>
-      </div>
-    </div>`;return;
+    if(pct>bestScore){bestScore=pct;localStorage.setItem('ma_best',String(bestScore));}
+    const msg=pct>=80?'Excellent ! Maîtrise confirmée.':pct>=60?'Très bien ! Continuez.':pct>=40?'Pas mal ! Encore un effort.':'Continuez, vous progressez !';
+    el.innerHTML=`<div class="score-box"><div class="score-ring"><div class="score-n">${score}/${quizResults.length}</div><div class="score-d">réponses</div></div><div class="score-pct">${pct}%</div><div class="score-msg">${msg}</div><div class="brow" style="justify-content:center"><button class="btn primary" onclick="startQuiz()">Rejouer</button><button class="btn" onclick="renderQuizModeSelect()">Changer de mode</button><button class="btn" onclick="showTab('fiches')">Revoir les fiches</button></div></div>`;
+    return;
   }
   const q=questions[idx];const total=questions.length;
   const pct=Math.round(idx/total*100);
-  const type=getType(idx);
+  const type=getQType(idx,mode);
   const decoys=shuffle(all().filter(d=>d.id!==q.id)).slice(0,3);
   const opts=shuffle([q,...decoys]);
   let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.875rem">
     <span style="font-size:12px;color:var(--text3);font-weight:600;font-family:sans-serif">Question ${idx+1} / ${total}</span>
-    <div style="display:flex;align-items:center;gap:8px">${badge(q.cat)}<span style="font-size:11px;color:var(--text4);font-family:sans-serif">${type==='shortcut'?'Raccourci → Action':'Action → Raccourci'}</span></div>
+    ${badge(q.cat)}
   </div>
   <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
   <div class="quiz-box">
-    <div class="quiz-q">${type==='shortcut'
-      ?`À quoi correspond ce raccourci ?<br><code>${q.shortcut}</code>`
-      :`Quel raccourci permet de :<br><span style="color:var(--text3);font-weight:400;font-size:14px;font-style:italic;font-family:sans-serif">${q.action}</span>`
-    }</div>
+    <div class="quiz-q">${type==='shortcut'?`À quoi correspond ce raccourci ?<br><code>${q.shortcut}</code>`:`Quel raccourci permet de :<br><span style="color:var(--text3);font-weight:400;font-size:14px;font-style:italic;font-family:sans-serif">${q.action}</span>`}</div>
     <div class="quiz-opts">`;
   opts.forEach(o=>{
     const label=type==='shortcut'?o.action:o.shortcut;
-    let cls='';
-    if(answered){if(o.id===q.id)cls='correct';else if(o.id===chosen)cls='wrong';}
+    let cls='';if(answered){if(o.id===q.id)cls='correct';else if(o.id===chosen)cls='wrong';}
     html+=`<button class="qopt ${cls}" ${answered?'disabled':''} onclick="answerQuiz(${o.id},${q.id})">${label}</button>`;
   });
   html+='</div>';
   if(answered){
     const ok=chosen===q.id;
-    html+=`<div class="feedback ${ok?'ok':'ko'}">${ok?'✓ Correct !':'✗ Pas tout à fait.'} <strong>${q.shortcut}</strong> → ${q.action}</div>
-    <div style="margin-top:1rem"><button class="btn primary" onclick="nextQ()">Suivant →</button></div>`;
+    html+=`<div class="feedback ${ok?'ok':'ko'}">${ok?'✓ Correct !':'✗ Pas tout à fait.'} <strong>${q.shortcut}</strong> → ${q.action}</div><div style="margin-top:1rem"><button class="btn primary" onclick="nextQ()">Suivant →</button></div>`;
   }
   html+='</div>';
   el.innerHTML=html;
 }
-function answerQuiz(chosen,correct){quizResults.push(chosen===correct);quizState.answered=true;quizState.chosen=chosen;renderQuiz();}
+function answerQuiz(chosen,correct){
+  const ok=chosen===correct;
+  quizResults.push(ok);
+  quizState.answered=true;quizState.chosen=chosen;
+  if(ok&&getLevel(correct)==='unknown')setLevel(correct,'learning');
+  renderQuiz();
+}
 function nextQ(){quizState.idx++;quizState.answered=false;quizState.chosen=null;renderQuiz();}
 
-function renderAjouter(){
-  const isEdit=editingId!==null;
-  const card=isEdit?custom.find(c=>c.id===editingId):null;
-  document.getElementById('tab-ajouter').innerHTML=`
-  <div class="stitle">${isEdit?'Modifier le raccourci':'Ajouter un raccourci'}</div>
-  <div class="form-panel">
-    <div class="form-grid">
-      <div class="form-group">
-        <label class="flabel">Raccourci clavier *</label>
-        <input class="finput" id="f-s" placeholder="ex: Ctrl + Shift + F" style="font-family:monospace" value="${isEdit?card.shortcut:''}">
-      </div>
-      <div class="form-group">
-        <label class="flabel">Catégorie</label>
-        <select class="fselect" id="f-c">
-          <option value="excel" ${!isEdit||card.cat==='excel'?'selected':''}>Excel</option>
-          <option value="ppt" ${isEdit&&card.cat==='ppt'?'selected':''}>PowerPoint</option>
-          <option value="win" ${isEdit&&card.cat==='win'?'selected':''}>Windows</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group" style="margin-bottom:14px">
-      <label class="flabel">Description *</label>
-      <input class="finput" id="f-a" placeholder="ex: Rechercher et remplacer dans tout le classeur" value="${isEdit?card.action:''}">
-    </div>
-    <div class="form-group" style="margin-bottom:1.5rem">
-      <label class="flabel">Astuce (optionnel)</label>
-      <input class="finput" id="f-h" placeholder="ex: Fonctionne aussi dans PPT" value="${isEdit&&card.hint?card.hint:''}">
-    </div>
-    <div class="brow">
-      <button class="btn primary" onclick="saveCard()">${isEdit?'Mettre à jour':'Enregistrer'}</button>
-      ${isEdit?`<button class="btn" onclick="cancelEdit()">Annuler</button>`:''}
-    </div>
-  </div>`;
-}
-
-function saveCard(){
-  const s=document.getElementById('f-s').value.trim();
-  const a=document.getElementById('f-a').value.trim();
-  const c=document.getElementById('f-c').value;
-  const h=document.getElementById('f-h').value.trim();
-  if(!s||!a){showToast('Raccourci et description sont obligatoires','err');return;}
-  if(editingId!==null){
-    const i=custom.findIndex(x=>x.id===editingId);
-    if(i>-1)custom[i]={id:editingId,cat:c,shortcut:s,action:a,hint:h};
-    editingId=null;showToast('Raccourci mis à jour !');
-  } else {
-    custom.push({id:nextId++,cat:c,shortcut:s,action:a,hint:h});
-    showToast('Raccourci ajouté !');
-  }
-  save();updateStats();showTab('fiches');
-}
-function editCard(id){editingId=id;showTab('ajouter');}
-function cancelEdit(){editingId=null;renderAjouter();}
-function deleteCard(id){custom=custom.filter(c=>c.id!==id);flipped.delete(id);save();showToast('Raccourci supprimé');updateStats();renderFiches();}
 function shuffle(arr){return[...arr].sort(()=>Math.random()-.5);}
 function showToast(msg,type='ok'){
   const t=document.getElementById('toast');
