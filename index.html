@@ -18,29 +18,73 @@
   --unknown:#b91c1c;--unknown-bg:#fde8e8;--unknown-border:#f0a0a0;
 }
 body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* HEADER */
 .header{background:var(--green);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:16px}
 .logo-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:20px}
 .logo-title{font-size:18px;font-weight:700;color:#F5F0E8;font-family:'Georgia',serif}
 .logo-sub{font-size:11px;color:rgba(245,240,232,0.6);margin-top:2px;letter-spacing:.08em;font-family:'Segoe UI',sans-serif}
-.header-stats{display:flex;gap:24px;flex-wrap:wrap}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.header-stats{display:flex;gap:20px;flex-wrap:wrap}
 .hstat{text-align:right}
-.hstat-n{font-size:22px;font-weight:700;color:#F5F0E8;line-height:1;font-family:'Georgia',serif}
+.hstat-n{font-size:20px;font-weight:700;color:#F5F0E8;line-height:1;font-family:'Georgia',serif}
 .hstat-n.green{color:#86efac}
 .hstat-n.yellow{color:#fde68a}
 .hstat-n.red{color:#fca5a5}
 .hstat-l{font-size:10px;color:rgba(245,240,232,0.55);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;font-family:'Segoe UI',sans-serif}
+/* PROGRESS BAR IN HEADER */
+.header-progress{width:260px;max-width:100%}
+.hprog-label{display:flex;justify-content:space-between;margin-bottom:5px}
+.hprog-label span{font-size:11px;color:rgba(245,240,232,0.7);font-family:'Segoe UI',sans-serif}
+.hprog-label strong{font-size:11px;color:#86efac;font-family:'Segoe UI',sans-serif}
+.hprog-track{height:7px;background:rgba(255,255,255,0.15);border-radius:4px;overflow:hidden}
+.hprog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#86efac,#4ade80);transition:width .6s cubic-bezier(.4,0,.2,1)}
+.hprog-segments{display:flex;gap:3px;margin-top:4px}
+.hprog-seg{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.12);transition:background .3s}
+.hprog-seg.mastered{background:#86efac}
+.hprog-seg.learning{background:#fde68a}
+.hprog-seg.unknown{background:#fca5a5}
+
+/* NAV */
 .nav{background:var(--green2);padding:0 2.5rem;display:flex;overflow-x:auto}
 .nav-tab{padding:13px 22px;font-size:13px;font-weight:400;color:rgba(245,240,232,0.6);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'Segoe UI',sans-serif}
 .nav-tab:hover{color:#F5F0E8}
 .nav-tab.active{color:#F5F0E8;border-bottom-color:var(--beige3)}
+
+/* MAIN */
 .main{padding:2rem 2.5rem;max-width:1100px;margin:0 auto}
-@media(max-width:640px){.main{padding:1.25rem 1rem}.header{padding:1rem}.nav{padding:0 1rem}}
+@media(max-width:640px){.main{padding:1.25rem 1rem}.header{padding:1rem}.header-progress{width:100%}.nav{padding:0 1rem}}
+
+/* PROGRESS BANNER (in fiches tab) */
+.prog-banner{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.prog-ring-wrap{flex-shrink:0}
+.prog-ring{width:72px;height:72px;position:relative}
+.prog-ring svg{transform:rotate(-90deg)}
+.prog-ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--green);font-family:'Georgia',serif}
+.prog-details{flex:1;min-width:180px}
+.prog-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;font-family:'Georgia',serif}
+.prog-bars{display:flex;flex-direction:column;gap:6px}
+.prog-bar-row{display:flex;align-items:center;gap:8px}
+.prog-bar-label{font-size:11px;color:var(--text3);font-family:'Segoe UI',sans-serif;width:80px;flex-shrink:0}
+.prog-bar-track{flex:1;height:6px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.prog-bar-fill{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.prog-bar-fill.mastered{background:var(--mastered)}
+.prog-bar-fill.learning{background:var(--learning)}
+.prog-bar-fill.unknown{background:var(--unknown)}
+.prog-bar-fill.unset{background:var(--border2)}
+.prog-bar-count{font-size:11px;color:var(--text4);font-family:'Segoe UI',sans-serif;width:28px;text-align:right;flex-shrink:0}
+.prog-message{font-size:12px;color:var(--text3);margin-top:10px;font-family:'Segoe UI',sans-serif;font-style:italic}
+
+/* SPACED REP BADGE */
+.sr-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:10px;font-size:10px;font-family:'Segoe UI',sans-serif;font-weight:600;background:rgba(180,83,9,.1);color:var(--learning);border:1px solid var(--learning-border);margin-left:6px}
+
 .stitle{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;font-family:'Segoe UI',sans-serif}
 .stitle::after{content:'';flex:1;height:1px;background:var(--border)}
+
 /* SEARCH */
 .search-wrap{position:relative;margin-bottom:1rem}
-.search-input{width:100%;padding:10px 40px 10px 40px;border-radius:24px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-family:'Segoe UI',sans-serif;transition:border .2s;outline:none}
+.search-input{width:100%;padding:10px 40px;border-radius:24px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-family:'Segoe UI',sans-serif;transition:border .2s;outline:none}
 .search-input:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,95,46,.08)}
 .search-input::placeholder{color:var(--text4)}
 .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text4);font-size:14px;pointer-events:none}
@@ -48,6 +92,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .search-clear.show{display:block}
 .search-clear:hover{color:var(--text2)}
 .search-count{font-size:11px;color:var(--text4);font-family:'Segoe UI',sans-serif;margin-bottom:.75rem}
+
 /* FILTERS */
 .filter-bar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
 .filter-btn{padding:6px 18px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:500;transition:all .2s;font-family:'Segoe UI',sans-serif}
@@ -64,10 +109,8 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .lbtn.on-unknown{background:var(--unknown-bg);border-color:var(--unknown-border);color:var(--unknown)}
 .lbtn.on-unset{background:var(--bg2);border-color:var(--border2);color:var(--text2)}
 .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.dot-mastered{background:var(--mastered)}
-.dot-learning{background:var(--learning)}
-.dot-unknown{background:var(--unknown)}
-.dot-unset{background:var(--border2)}
+.dot-mastered{background:var(--mastered)}.dot-learning{background:var(--learning)}.dot-unknown{background:var(--unknown)}.dot-unset{background:var(--border2)}
+
 /* CARDS */
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
 .card-wrap{height:195px;perspective:900px;cursor:pointer;position:relative}
@@ -96,7 +139,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .lv-flag.unknown{background:var(--unknown);border-color:var(--unknown)}
 .lv-flag.unset{background:#ddd;border-color:#ccc}
 .lv-picker{position:absolute;top:28px;left:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:4px;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.15);min-width:170px}
-.lv-picker-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-family:'Segoe UI',sans-serif;color:var(--text2);border:none;background:transparent;width:100%;text-align:left;-webkit-tap-highlight-color:transparent}
+.lv-picker-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:13px;font-family:'Segoe UI',sans-serif;color:var(--text2);border:none;background:transparent;width:100%;text-align:left}
 .lv-picker-opt:hover,.lv-picker-opt:active{background:var(--bg2)}
 .lv-picker-opt .dot{width:12px;height:12px}
 .lv-sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;display:flex;align-items:flex-end;justify-content:center}
@@ -104,7 +147,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .lv-sheet-handle{width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 1.25rem}
 .lv-sheet-title{font-size:13px;font-weight:600;color:var(--text3);text-align:center;margin-bottom:1rem;font-family:'Segoe UI',sans-serif;text-transform:uppercase;letter-spacing:.06em}
 .lv-sheet-opts{display:flex;flex-direction:column;gap:8px}
-.lv-sheet-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;cursor:pointer;font-size:15px;font-family:'Segoe UI',sans-serif;color:var(--text);border:1.5px solid var(--border);background:var(--bg);-webkit-tap-highlight-color:transparent}
+.lv-sheet-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;cursor:pointer;font-size:15px;font-family:'Segoe UI',sans-serif;color:var(--text);border:1.5px solid var(--border);background:var(--bg)}
 .lv-sheet-opt:active{transform:scale(0.98)}
 .lv-sheet-opt.opt-mastered{border-color:var(--mastered-border);background:var(--mastered-bg);color:var(--mastered)}
 .lv-sheet-opt.opt-learning{border-color:var(--learning-border);background:var(--learning-bg);color:var(--learning)}
@@ -115,6 +158,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .card-flip-hint{font-size:10px;color:var(--text4);text-align:right;font-family:'Segoe UI',sans-serif}
 .card-back-action{font-size:13px;font-weight:600;color:#F5F0E8;line-height:1.5;padding:0 .5rem;font-family:'Georgia',serif}
 .card-back-short{font-size:11px;color:rgba(245,240,232,0.65);font-family:monospace;margin-top:5px}
+
 /* SLIDE */
 .big-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;min-height:300px;padding:2.25rem;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;transition:all .25s}
 .big-card.flipped{background:var(--green);border-color:var(--green)}
@@ -142,6 +186,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .slbtn.active-mastered{background:var(--mastered-bg);border-color:var(--mastered-border);color:var(--mastered)}
 .slbtn.active-learning{background:var(--learning-bg);border-color:var(--learning-border);color:var(--learning)}
 .slbtn.active-unknown{background:var(--unknown-bg);border-color:var(--unknown-border);color:var(--unknown)}
+
 /* QUIZ */
 .quiz-mode-sel{display:flex;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap}
 .qmode-btn{flex:1;min-width:180px;padding:1.2rem 1.35rem;border-radius:12px;border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;transition:all .2s}
@@ -170,6 +215,10 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .score-d{font-size:12px;color:rgba(245,240,232,0.65);font-family:'Segoe UI',sans-serif}
 .score-pct{font-size:28px;font-weight:700;color:var(--green);margin-bottom:.5rem;font-family:'Georgia',serif}
 .score-msg{font-size:14px;color:var(--text3);margin-bottom:2rem;font-family:'Segoe UI',sans-serif}
+.score-breakdown{display:flex;gap:16px;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.score-bd-item{padding:8px 16px;border-radius:8px;font-size:12px;font-family:'Segoe UI',sans-serif;font-weight:600}
+.score-bd-item.ok{background:var(--mastered-bg);color:var(--mastered)}
+.score-bd-item.ko{background:var(--unknown-bg);color:var(--unknown)}
 .btn{padding:10px 22px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;font-family:'Segoe UI',sans-serif}
 .btn:hover{background:var(--bg2);color:var(--text)}
 .btn.primary{background:var(--green);border-color:var(--green);color:#F5F0E8}
@@ -194,11 +243,18 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
       <div class="logo-sub">Excel · PowerPoint · Windows</div>
     </div>
   </div>
-  <div class="header-stats">
-    <div class="hstat"><div class="hstat-n" id="stat-total">0</div><div class="hstat-l">Total</div></div>
-    <div class="hstat"><div class="hstat-n green" id="stat-mastered">0</div><div class="hstat-l">✓ Maîtrisés</div></div>
-    <div class="hstat"><div class="hstat-n yellow" id="stat-learning">0</div><div class="hstat-l">~ En cours</div></div>
-    <div class="hstat"><div class="hstat-n red" id="stat-unknown">0</div><div class="hstat-l">✗ À revoir</div></div>
+  <div class="header-right">
+    <div class="header-stats">
+      <div class="hstat"><div class="hstat-n" id="stat-total">0</div><div class="hstat-l">Total</div></div>
+      <div class="hstat"><div class="hstat-n green" id="stat-mastered">0</div><div class="hstat-l">✓ Maîtrisés</div></div>
+      <div class="hstat"><div class="hstat-n yellow" id="stat-learning">0</div><div class="hstat-l">~ En cours</div></div>
+      <div class="hstat"><div class="hstat-n red" id="stat-unknown">0</div><div class="hstat-l">✗ À revoir</div></div>
+    </div>
+    <div class="header-progress">
+      <div class="hprog-label"><span>Progression globale</span><strong id="hprog-pct">0%</strong></div>
+      <div class="hprog-track"><div class="hprog-fill" id="hprog-fill" style="width:0%"></div></div>
+      <div class="hprog-segments" id="hprog-segs"></div>
+    </div>
   </div>
 </div>
 
@@ -310,7 +366,10 @@ const BASE=[
   {id:90,cat:'win',shortcut:'Win + E',action:"Ouvrir l'Explorateur de fichiers",hint:''},
 ];
 
+// ── STATE ──
 let levels=JSON.parse(localStorage.getItem('ma_levels')||'{}');
+// Spaced repetition: track how many times each card was wrong
+let srWrong=JSON.parse(localStorage.getItem('ma_srwrong')||'{}');
 let flipped=new Set();
 let currentFilter='all';
 let levelFilter='all';
@@ -321,9 +380,29 @@ let bestScore=parseInt(localStorage.getItem('ma_best')||'0');
 let activePicker=null;
 
 function saveLevels(){localStorage.setItem('ma_levels',JSON.stringify(levels));}
+function saveSR(){localStorage.setItem('ma_srwrong',JSON.stringify(srWrong));}
 function all(){return BASE;}
 function getLevel(id){return levels[id]||'unset';}
 function setLevel(id,lv){if(lv==='unset')delete levels[id];else levels[id]=lv;saveLevels();updateStats();}
+
+// ── SPACED REPETITION POOL ──
+// Weight: unknown=5x, learning=2x, mastered=0.5x, unset=1x
+function buildSRPool(basePool){
+  const weights={unknown:5,learning:2,unset:1,mastered:0.5};
+  let pool=[];
+  basePool.forEach(d=>{
+    const lv=getLevel(d.id);
+    const extraWrong=Math.min(srWrong[d.id]||0,5); // up to 5 extra copies for repeat errors
+    const w=Math.ceil((weights[lv]||1)+extraWrong);
+    for(let i=0;i<w;i++)pool.push(d);
+  });
+  return shuffle(pool).slice(0,Math.min(12,pool.length));
+  // deduplicate keeping order
+}
+function dedupePool(pool){
+  const seen=new Set();
+  return pool.filter(d=>{if(seen.has(d.id))return false;seen.add(d.id);return true;});
+}
 
 function filteredCards(f,lf,q){
   let cards=f==='all'?all():all().filter(d=>d.cat===f);
@@ -341,10 +420,20 @@ const LV_DOT={mastered:'dot-mastered',learning:'dot-learning',unknown:'dot-unkno
 
 function updateStats(){
   const a=all();
+  const nMastered=a.filter(d=>getLevel(d.id)==='mastered').length;
+  const nLearning=a.filter(d=>getLevel(d.id)==='learning').length;
+  const nUnknown=a.filter(d=>getLevel(d.id)==='unknown').length;
+  const nUnset=a.length-nMastered-nLearning-nUnknown;
+  const pct=Math.round(nMastered/a.length*100);
   document.getElementById('stat-total').textContent=a.length;
-  document.getElementById('stat-mastered').textContent=a.filter(d=>getLevel(d.id)==='mastered').length;
-  document.getElementById('stat-learning').textContent=a.filter(d=>getLevel(d.id)==='learning').length;
-  document.getElementById('stat-unknown').textContent=a.filter(d=>getLevel(d.id)==='unknown').length;
+  document.getElementById('stat-mastered').textContent=nMastered;
+  document.getElementById('stat-learning').textContent=nLearning;
+  document.getElementById('stat-unknown').textContent=nUnknown;
+  document.getElementById('hprog-pct').textContent=pct+'%';
+  document.getElementById('hprog-fill').style.width=pct+'%';
+  // segments
+  const segs=document.getElementById('hprog-segs');
+  segs.innerHTML=a.map(d=>`<div class="hprog-seg ${getLevel(d.id)}"></div>`).join('');
 }
 
 function showTab(t){
@@ -365,8 +454,7 @@ function renderFiches(){
     const re=new RegExp(`(${searchQuery.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
     return str.replace(re,'<mark style="background:#FEF08A;border-radius:2px;padding:0 1px">$1</mark>');
   };
-  let html=`
-  <div class="search-wrap">
+  let html=`<div class="search-wrap">
     <span class="search-icon">🔍</span>
     <input class="search-input" id="search-input" placeholder="Rechercher un raccourci ou une action…" value="${searchQuery.replace(/"/g,'&quot;')}" oninput="onSearch(this.value)" autocomplete="off">
     <button class="search-clear${searchQuery?' show':''}" onclick="clearSearch()">✕</button>
@@ -387,7 +475,6 @@ function renderFiches(){
   ${searchQuery?`<div class="search-count">${cards.length} résultat${cards.length!==1?'s':''} pour « ${searchQuery} »</div>`:''}
   <div class="stitle">Cliquer pour retourner · point coloré pour évaluer</div>
   <div class="cards-grid">`;
-
   if(!cards.length){
     html+=`<div class="empty" style="grid-column:1/-1"><div class="empty-t">Aucune fiche</div><div class="empty-s">${searchQuery?`Aucun résultat pour « ${searchQuery} »`:'Modifiez les filtres'}</div></div>`;
   } else {
@@ -434,8 +521,7 @@ function isMobile(){return window.innerWidth<=640||('ontouchstart' in window);}
 function togglePicker(e,id){
   e.stopPropagation();
   if(activePicker===id){closePicker();return;}
-  closePicker();
-  activePicker=id;
+  closePicker();activePicker=id;
   if(isMobile()){openSheet(id);}
   else{
     const wrap=document.getElementById('cw-'+id);
@@ -443,8 +529,7 @@ function togglePicker(e,id){
     const picker=document.createElement('div');
     picker.className='lv-picker';picker.id='picker-'+id;
     [{lv:'mastered',label:'✓ Maîtrisé'},{lv:'learning',label:'~ En cours'},{lv:'unknown',label:'✗ À revoir'},{lv:'unset',label:'◌ Non évalué'}].forEach(o=>{
-      const btn=document.createElement('button');
-      btn.className='lv-picker-opt';
+      const btn=document.createElement('button');btn.className='lv-picker-opt';
       btn.innerHTML=`<span class="dot ${LV_DOT[o.lv]}"></span>${o.label}`;
       btn.onclick=(ev)=>{ev.stopPropagation();setLevel(id,o.lv);closePicker();renderFiches();};
       picker.appendChild(btn);
@@ -455,8 +540,7 @@ function togglePicker(e,id){
 }
 function openSheet(id){
   const cur=getLevel(id);
-  const overlay=document.createElement('div');
-  overlay.className='lv-sheet-overlay';overlay.id='lv-sheet-overlay';
+  const overlay=document.createElement('div');overlay.className='lv-sheet-overlay';overlay.id='lv-sheet-overlay';
   overlay.innerHTML=`<div class="lv-sheet">
     <div class="lv-sheet-handle"></div>
     <div class="lv-sheet-title">Évaluer ce raccourci</div>
@@ -480,22 +564,32 @@ function closePicker(){
 }
 
 // ── SLIDE ──
+function slideFilterBar(){
+  const cnt=f=>all().filter(c=>c.cat===f).length;
+  return `<div class="filter-bar">
+    <button class="filter-btn fb-all ${slideFilter==='all'?'on':''}" onclick="setSlideFilter('all')">Tous</button>
+    <button class="filter-btn fb-excel ${slideFilter==='excel'?'on':''}" onclick="setSlideFilter('excel')">Excel (${cnt('excel')})</button>
+    <button class="filter-btn fb-ppt ${slideFilter==='ppt'?'on':''}" onclick="setSlideFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
+    <button class="filter-btn fb-win ${slideFilter==='win'?'on':''}" onclick="setSlideFilter('win')">Windows (${cnt('win')})</button>
+  </div>`;
+}
+function slideLevelBar(){
+  return `<div class="level-bar">
+    <button class="lbtn ${slideLevelFilter==='all'?'on-unset':''}" onclick="setSlideLevelFilter('all')"><span class="dot dot-unset"></span>Tous</button>
+    <button class="lbtn ${slideLevelFilter==='mastered'?'on-mastered':''}" onclick="setSlideLevelFilter('mastered')"><span class="dot dot-mastered"></span>Maîtrisé</button>
+    <button class="lbtn ${slideLevelFilter==='learning'?'on-learning':''}" onclick="setSlideLevelFilter('learning')"><span class="dot dot-learning"></span>En cours</button>
+    <button class="lbtn ${slideLevelFilter==='unknown'?'on-unknown':''}" onclick="setSlideLevelFilter('unknown')"><span class="dot dot-unknown"></span>À revoir</button>
+    <button class="lbtn ${slideLevelFilter==='unset'?'on-unset':''}" onclick="setSlideLevelFilter('unset')"><span class="dot dot-unset"></span>Non évalué</button>
+  </div>`;
+}
 function renderSlide(){
   const cards=filteredCards(slideFilter,slideLevelFilter,'');
   const el=document.getElementById('tab-slide');
-  const cnt=f=>all().filter(c=>c.cat===f).length;
-  const lvCnt=lv=>all().filter(d=>getLevel(d.id)===lv).length;
-  if(!cards.length){
-    el.innerHTML=`${slideFilterBar()}${slideLevelBar()}<div class="empty"><div class="empty-t">Aucune fiche</div><div class="empty-s">Modifiez les filtres</div></div>`;
-    return;
-  }
+  if(!cards.length){el.innerHTML=slideFilterBar()+slideLevelBar()+`<div class="empty"><div class="empty-t">Aucune fiche</div><div class="empty-s">Modifiez les filtres</div></div>`;return;}
   const idx=Math.min(slideIdx,cards.length-1);
-  const d=cards[idx];
-  const lv=getLevel(d.id);
+  const d=cards[idx];const lv=getLevel(d.id);
   const dots=cards.length<=20?cards.map((_,i)=>`<div class="sdot${i===idx?' on':''}" onclick="goSlide(${i})"></div>`).join(''):`<span class="slide-counter">${idx+1} / ${cards.length}</span>`;
-  el.innerHTML=`
-  ${slideFilterBar()}
-  ${slideLevelBar()}
+  el.innerHTML=`${slideFilterBar()}${slideLevelBar()}
   <div class="stitle">Mode slide</div>
   <div style="max-width:640px;margin:0 auto">
     <div class="big-card${slideFlipped?' flipped':''}" onclick="toggleSlideFlip()">
@@ -536,33 +630,7 @@ function renderSlide(){
   bc.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
   bc.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){if(dx<0)nextSlide();else prevSlide();}},{passive:true});
 }
-
-function slideFilterBar(){
-  const cnt=f=>all().filter(c=>c.cat===f).length;
-  return `<div class="filter-bar">
-    <button class="filter-btn fb-all ${slideFilter==='all'?'on':''}" onclick="setSlideFilter('all')">Tous</button>
-    <button class="filter-btn fb-excel ${slideFilter==='excel'?'on':''}" onclick="setSlideFilter('excel')">Excel (${cnt('excel')})</button>
-    <button class="filter-btn fb-ppt ${slideFilter==='ppt'?'on':''}" onclick="setSlideFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
-    <button class="filter-btn fb-win ${slideFilter==='win'?'on':''}" onclick="setSlideFilter('win')">Windows (${cnt('win')})</button>
-  </div>`;
-}
-function slideLevelBar(){
-  return `<div class="level-bar">
-    <button class="lbtn ${slideLevelFilter==='all'?'on-unset':''}" onclick="setSlideLevelFilter('all')"><span class="dot dot-unset"></span>Tous</button>
-    <button class="lbtn ${slideLevelFilter==='mastered'?'on-mastered':''}" onclick="setSlideLevelFilter('mastered')"><span class="dot dot-mastered"></span>Maîtrisé</button>
-    <button class="lbtn ${slideLevelFilter==='learning'?'on-learning':''}" onclick="setSlideLevelFilter('learning')"><span class="dot dot-learning"></span>En cours</button>
-    <button class="lbtn ${slideLevelFilter==='unknown'?'on-unknown':''}" onclick="setSlideLevelFilter('unknown')"><span class="dot dot-unknown"></span>À revoir</button>
-    <button class="lbtn ${slideLevelFilter==='unset'?'on-unset':''}" onclick="setSlideLevelFilter('unset')"><span class="dot dot-unset"></span>Non évalué</button>
-  </div>`;
-}
-function setSlideLv(lv){
-  const cards=filteredCards(slideFilter,slideLevelFilter,'');
-  if(!cards.length)return;
-  const d=cards[Math.min(slideIdx,cards.length-1)];
-  const cur=getLevel(d.id);
-  setLevel(d.id,cur===lv?'unset':lv);
-  renderSlide();
-}
+function setSlideLv(lv){const cards=filteredCards(slideFilter,slideLevelFilter,'');if(!cards.length)return;const d=cards[Math.min(slideIdx,cards.length-1)];const cur=getLevel(d.id);setLevel(d.id,cur===lv?'unset':lv);renderSlide();}
 function goSlide(i){slideIdx=i;slideFlipped=false;renderSlide();}
 function prevSlide(){if(slideIdx>0){slideIdx--;slideFlipped=false;renderSlide();}}
 function nextSlide(){const cards=filteredCards(slideFilter,slideLevelFilter,'');if(slideIdx<cards.length-1){slideIdx++;slideFlipped=false;renderSlide();}}
@@ -583,37 +651,86 @@ document.addEventListener('keydown',e=>{
 
 // ── QUIZ ──
 function renderQuizModeSelect(){
+  const nUnknown=all().filter(d=>getLevel(d.id)==='unknown').length;
   document.getElementById('tab-quiz').innerHTML=`
   <div class="stitle">Choisir le mode de quiz</div>
   <div class="quiz-mode-sel">
-    <div class="qmode-btn${quizMode==='shortcut'?' selected':''}" onclick="selectQMode('shortcut')"><div class="qmode-title">Raccourci → Action</div><div class="qmode-sub">On vous montre le raccourci, trouvez ce qu'il fait</div></div>
-    <div class="qmode-btn${quizMode==='action'?' selected':''}" onclick="selectQMode('action')"><div class="qmode-title">Action → Raccourci</div><div class="qmode-sub">On vous décrit l'action, trouvez le raccourci</div></div>
-    <div class="qmode-btn${quizMode==='mixed'?' selected':''}" onclick="selectQMode('mixed')"><div class="qmode-title">Mode mixte</div><div class="qmode-sub">Les deux sens mélangés aléatoirement</div></div>
-    <div class="qmode-btn${quizMode==='unknown'?' selected':''}" onclick="selectQMode('unknown')"><div class="qmode-title">🔴 À revoir uniquement</div><div class="qmode-sub">Travailler uniquement les raccourcis marqués "à revoir"</div></div>
+    <div class="qmode-btn${quizMode==='shortcut'?' selected':''}" onclick="selectQMode('shortcut')">
+      <div class="qmode-title">Raccourci → Action</div>
+      <div class="qmode-sub">On vous montre le raccourci, trouvez ce qu'il fait</div>
+    </div>
+    <div class="qmode-btn${quizMode==='action'?' selected':''}" onclick="selectQMode('action')">
+      <div class="qmode-title">Action → Raccourci</div>
+      <div class="qmode-sub">On vous décrit l'action, trouvez le raccourci</div>
+    </div>
+    <div class="qmode-btn${quizMode==='mixed'?' selected':''}" onclick="selectQMode('mixed')">
+      <div class="qmode-title">Mode mixte</div>
+      <div class="qmode-sub">Les deux sens mélangés aléatoirement</div>
+    </div>
+    <div class="qmode-btn${quizMode==='sr'?' selected':''}" onclick="selectQMode('sr')">
+      <div class="qmode-title">🧠 Répétition espacée</div>
+      <div class="qmode-sub">Les raccourcis à revoir reviennent plus souvent — comme Anki${nUnknown>0?` · ${nUnknown} à revoir`:''}</div>
+    </div>
   </div>
   <button class="btn primary" onclick="startQuiz()">Lancer le quiz →</button>`;
 }
 function selectQMode(m){quizMode=m;renderQuizModeSelect();}
+
 function startQuiz(){
-  let pool=all();
-  if(quizMode==='unknown')pool=pool.filter(d=>getLevel(d.id)==='unknown');
-  if(pool.length<4){showToast(quizMode==='unknown'?'Pas assez de fiches "À revoir"':'Pas assez de fiches','err');return;}
+  let pool;
+  if(quizMode==='sr'){
+    // Spaced repetition: weight by level + past errors
+    const weighted=[];
+    all().forEach(d=>{
+      const lv=getLevel(d.id);
+      const w={unknown:5,learning:2,unset:1,mastered:0.3}[lv]||1;
+      const extra=Math.min(srWrong[d.id]||0,4);
+      const total=Math.ceil(w+extra);
+      for(let i=0;i<total;i++)weighted.push(d);
+    });
+    const shuffled=shuffle(weighted);
+    // deduplicate
+    const seen=new Set();
+    pool=shuffled.filter(d=>{if(seen.has(d.id))return false;seen.add(d.id);return true;}).slice(0,12);
+  } else if(quizMode==='unknown'){
+    pool=all().filter(d=>getLevel(d.id)==='unknown');
+  } else {
+    pool=shuffle(all()).slice(0,12);
+  }
+  if(pool.length<4){showToast('Pas assez de fiches pour ce mode','err');return;}
   quizResults=[];
-  const mode=quizMode==='unknown'?'mixed':quizMode;
-  quizState={questions:shuffle(pool).slice(0,Math.min(12,pool.length)),idx:0,answered:false,chosen:null,mode};
+  const mode=['shortcut','action'].includes(quizMode)?quizMode:'mixed';
+  quizState={questions:pool,idx:0,answered:false,chosen:null,mode,isSR:quizMode==='sr'};
   renderQuiz();
 }
+
 function getQType(i,mode){if(mode==='shortcut')return'shortcut';if(mode==='action')return'action';return i%2===0?'shortcut':'action';}
+
 function renderQuiz(){
   const el=document.getElementById('tab-quiz');
   if(!quizState){renderQuizModeSelect();return;}
-  const{questions,idx,answered,chosen,mode}=quizState;
+  const{questions,idx,answered,chosen,mode,isSR}=quizState;
   if(idx>=questions.length){
     const score=quizResults.filter(r=>r).length;
     const pct=Math.round(score/quizResults.length*100);
     if(pct>bestScore){bestScore=pct;localStorage.setItem('ma_best',String(bestScore));}
-    const msg=pct>=80?'Excellent ! Maîtrise confirmée.':pct>=60?'Très bien ! Continuez.':pct>=40?'Pas mal ! Encore un effort.':'Continuez, vous progressez !';
-    el.innerHTML=`<div class="score-box"><div class="score-ring"><div class="score-n">${score}/${quizResults.length}</div><div class="score-d">réponses</div></div><div class="score-pct">${pct}%</div><div class="score-msg">${msg}</div><div class="brow" style="justify-content:center"><button class="btn primary" onclick="startQuiz()">Rejouer</button><button class="btn" onclick="renderQuizModeSelect()">Changer de mode</button><button class="btn" onclick="showTab('fiches')">Revoir les fiches</button></div></div>`;
+    const msg=pct>=80?'Excellent ! Maîtrise confirmée. 🎯':pct>=60?'Très bien ! Continuez.':pct>=40?'Pas mal ! Encore un effort.':'Continuez, vous progressez !';
+    const nRight=quizResults.filter(r=>r).length;
+    const nWrong=quizResults.length-nRight;
+    el.innerHTML=`<div class="score-box">
+      <div class="score-ring"><div class="score-n">${score}/${quizResults.length}</div><div class="score-d">réponses</div></div>
+      <div class="score-pct">${pct}%</div>
+      <div class="score-breakdown">
+        <div class="score-bd-item ok">✓ ${nRight} correcte${nRight>1?'s':''}</div>
+        <div class="score-bd-item ko">✗ ${nWrong} erreur${nWrong>1?'s':''}</div>
+      </div>
+      <div class="score-msg">${msg}</div>
+      <div class="brow" style="justify-content:center">
+        <button class="btn primary" onclick="startQuiz()">Rejouer</button>
+        <button class="btn" onclick="renderQuizModeSelect()">Changer de mode</button>
+        <button class="btn" onclick="showTab('fiches')">Voir les fiches</button>
+      </div>
+    </div>`;
     return;
   }
   const q=questions[idx];const total=questions.length;
@@ -621,9 +738,13 @@ function renderQuiz(){
   const type=getQType(idx,mode);
   const decoys=shuffle(all().filter(d=>d.id!==q.id)).slice(0,3);
   const opts=shuffle([q,...decoys]);
+  const lv=getLevel(q.id);
   let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.875rem">
     <span style="font-size:12px;color:var(--text3);font-weight:600;font-family:sans-serif">Question ${idx+1} / ${total}</span>
-    ${badge(q.cat)}
+    <div style="display:flex;align-items:center;gap:6px">
+      ${badge(q.cat)}
+      ${isSR&&lv!=='unset'?`<span style="font-size:10px;padding:2px 7px;border-radius:10px;font-family:sans-serif;background:var(--${lv}-bg);color:var(--${lv});border:1px solid var(--${lv}-border)">${LV_LABEL[lv]}</span>`:''}
+    </div>
   </div>
   <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
   <div class="quiz-box">
@@ -637,16 +758,28 @@ function renderQuiz(){
   html+='</div>';
   if(answered){
     const ok=chosen===q.id;
-    html+=`<div class="feedback ${ok?'ok':'ko'}">${ok?'✓ Correct !':'✗ Pas tout à fait.'} <strong>${q.shortcut}</strong> → ${q.action}</div><div style="margin-top:1rem"><button class="btn primary" onclick="nextQ()">Suivant →</button></div>`;
+    html+=`<div class="feedback ${ok?'ok':'ko'}">${ok?'✓ Correct !':'✗ Pas tout à fait.'} <strong>${q.shortcut}</strong> → ${q.action}</div>
+    <div style="margin-top:1rem"><button class="btn primary" onclick="nextQ()">Suivant →</button></div>`;
   }
   html+='</div>';
   el.innerHTML=html;
 }
+
 function answerQuiz(chosen,correct){
   const ok=chosen===correct;
   quizResults.push(ok);
   quizState.answered=true;quizState.chosen=chosen;
-  if(ok&&getLevel(correct)==='unknown')setLevel(correct,'learning');
+  // Update spaced repetition score
+  if(!ok){
+    srWrong[correct]=(srWrong[correct]||0)+1;
+    saveSR();
+  } else {
+    // Correct answer: reduce error count slightly
+    if(srWrong[correct]>0){srWrong[correct]=Math.max(0,srWrong[correct]-1);saveSR();}
+  }
+  // Auto-update level
+  if(ok&&getLevel(correct)==='unknown'){setLevel(correct,'learning');}
+  if(!ok&&getLevel(correct)==='mastered'){setLevel(correct,'learning');}
   renderQuiz();
 }
 function nextQ(){quizState.idx++;quizState.answered=false;quizState.chosen=null;renderQuiz();}
