@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M&A Shortcuts</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F0E8;
+  --bg2:#EDE8DC;
+  --surface:#FDFAF4;
+  --surface2:#F8F4EA;
+  --border:#DDD5C0;
+  --border2:#C8BFA8;
+  --green:#2C5F2E;
+  --green2:#3A7A3D;
+  --green3:#4E9E52;
+  --green-pale:#E8F2E8;
+  --green-light:#C5DFC6;
+  --beige:#F5F0E8;
+  --beige2:#E8DFD0;
+  --beige3:#D4C9B0;
+  --text:#1C2B1D;
+  --text2:#3D4F3E;
+  --text3:#6B7D6C;
+  --text4:#9AA89B;
+  --gold:#8A6E3E;
+  --gold2:#B8924F;
+  --excel:#1D5FA8;
+  --ppt:#B83232;
+  --win:#2C5F2E;
+  --custom:#8A6E3E;
+}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-height:100vh}
+.header{background:var(--green);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{display:flex;align-items:center;gap:16px}
+.logo-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:20px}
+.logo-title{font-size:18px;font-weight:700;color:#F5F0E8;letter-spacing:.3px;font-family:'Georgia',serif}
+.logo-sub{font-size:11px;color:rgba(245,240,232,0.6);margin-top:2px;letter-spacing:.08em;font-family:'Segoe UI',sans-serif}
+.header-stats{display:flex;gap:32px}
+.hstat{text-align:right}
+.hstat-n{font-size:24px;font-weight:700;color:#F5F0E8;line-height:1;font-family:'Georgia',serif}
+.hstat-l{font-size:10px;color:rgba(245,240,232,0.55);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;font-family:'Segoe UI',sans-serif}
+.nav{background:var(--green2);padding:0 2.5rem;display:flex;gap:0;overflow-x:auto}
+.nav-tab{padding:13px 22px;font-size:13px;font-weight:400;color:rgba(245,240,232,0.6);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;font-family:'Segoe UI',sans-serif;letter-spacing:.03em}
+.nav-tab:hover{color:#F5F0E8}
+.nav-tab.active{color:#F5F0E8;border-bottom-color:var(--beige3)}
+.main{padding:2rem 2.5rem;max-width:1100px;margin:0 auto}
+@media(max-width:640px){.main{padding:1.25rem 1rem}.header{padding:1rem;flex-wrap:wrap}.header-stats{gap:16px}.nav{padding:0 1rem}}
+.stitle{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:1.25rem;display:flex;align-items:center;gap:12px;font-family:'Segoe UI',sans-serif}
+.stitle::after{content:'';flex:1;height:1px;background:var(--border)}
+.filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-btn{padding:6px 18px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:500;transition:all .2s;font-family:'Segoe UI',sans-serif}
+.filter-btn:hover{border-color:var(--green2);color:var(--green)}
+.fb-all.on{background:var(--green);border-color:var(--green);color:#F5F0E8}
+.fb-excel.on{background:rgba(29,95,168,.1);border-color:var(--excel);color:var(--excel)}
+.fb-ppt.on{background:rgba(184,50,50,.1);border-color:var(--ppt);color:var(--ppt)}
+.fb-win.on{background:var(--green-pale);border-color:var(--green3);color:var(--green)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card-wrap{height:185px;perspective:900px;cursor:pointer}
+.card-inner{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+.card-wrap.flipped .card-inner{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;border-radius:12px;padding:1.35rem;backface-visibility:hidden;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--border)}
+.card-front{background:var(--surface);transition:all .2s}
+.card-front:hover{border-color:var(--green3);box-shadow:0 4px 20px rgba(44,95,46,.1);transform:translateY(-2px)}
+.card-back{transform:rotateY(180deg);background:var(--green);border-color:var(--green);justify-content:center;align-items:center;text-align:center;gap:10px}
+.cat-bar{height:3px;border-radius:2px;margin-bottom:12px}
+.cbar-excel{background:var(--excel)}
+.cbar-ppt{background:var(--ppt)}
+.cbar-win{background:var(--win)}
+.cbar-custom{background:var(--gold2)}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cbadge{padding:3px 10px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-family:'Segoe UI',sans-serif}
+.cbx-excel{background:rgba(29,95,168,.1);color:var(--excel)}
+.cbx-ppt{background:rgba(184,50,50,.1);color:var(--ppt)}
+.cbx-win{background:var(--green-pale);color:var(--green)}
+.cbx-custom{background:rgba(138,110,62,.1);color:var(--gold)}
+.card-shortcut{font-size:16px;font-weight:700;font-family:'Consolas','Courier New',monospace;color:var(--text);line-height:1.4}
+.card-hint{font-size:11px;color:var(--text3);margin-top:4px;line-height:1.4;font-family:'Segoe UI',sans-serif}
+.card-flip-hint{font-size:10px;color:var(--text4);text-align:right;font-family:'Segoe UI',sans-serif}
+.card-back-action{font-size:14px;font-weight:600;color:#F5F0E8;line-height:1.5;padding:0 .5rem;font-family:'Georgia',serif}
+.card-back-short{font-size:11px;color:rgba(245,240,232,0.65);font-family:monospace;margin-top:6px}
+.ibtn{background:none;border:none;cursor:pointer;color:var(--text4);font-size:13px;padding:3px 5px;border-radius:4px;transition:all .15s;line-height:1}
+.ibtn:hover{color:var(--green);background:var(--green-pale)}
+.ibtn.del:hover{color:var(--ppt);background:rgba(184,50,50,.08)}
+.big-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;min-height:300px;padding:2.25rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:all .25s;cursor:pointer}
+.big-card.flipped{background:var(--green);border-color:var(--green)}
+.big-shortcut{font-size:32px;font-weight:700;font-family:'Consolas',monospace;color:var(--text);line-height:1.3;margin:1rem 0}
+.big-hint{font-size:13px;color:var(--text3);line-height:1.5;font-family:'Segoe UI',sans-serif}
+.big-action{font-size:22px;font-weight:600;color:#F5F0E8;line-height:1.5;text-align:center;padding:0 1rem;font-family:'Georgia',serif}
+.big-sub{font-size:12px;color:rgba(245,240,232,0.6);font-family:monospace;margin-top:.75rem;text-align:center}
+.flip-zone{cursor:pointer;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.flip-tip{font-size:11px;color:var(--text4);margin-top:1rem;font-family:'Segoe UI',sans-serif}
+.flip-tip-inv{font-size:11px;color:rgba(245,240,232,0.5);margin-top:1rem;font-family:'Segoe UI',sans-serif}
+.slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem}
+.snav-btn{background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text2);cursor:pointer;padding:10px 24px;font-size:13px;font-weight:500;transition:all .2s;font-family:'Segoe UI',sans-serif}
+.snav-btn:hover:not(:disabled){background:var(--green);border-color:var(--green);color:#F5F0E8}
+.snav-btn:disabled{opacity:.3;cursor:default}
+.slide-dots{display:flex;gap:7px;align-items:center}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:all .2s;cursor:pointer}
+.sdot.on{background:var(--green);width:22px;border-radius:4px}
+.slide-counter{font-size:13px;color:var(--text3);font-weight:500;font-family:'Segoe UI',sans-serif}
+.kbd-hint{display:flex;gap:14px;justify-content:center;margin-top:1rem;flex-wrap:wrap}
+.kbd-hint span{font-size:11px;color:var(--text4);font-family:'Segoe UI',sans-serif}
+.kbd{display:inline-block;padding:1px 8px;border-radius:4px;border:1px solid var(--border);background:var(--bg2);font-family:monospace;font-size:11px;color:var(--text3)}
+.quiz-mode-sel{display:flex;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap}
+.qmode-btn{flex:1;min-width:180px;padding:1.2rem 1.35rem;border-radius:12px;border:1px solid var(--border);background:var(--surface);cursor:pointer;text-align:left;transition:all .2s}
+.qmode-btn:hover{border-color:var(--green2)}
+.qmode-btn.selected{border-color:var(--green);background:var(--green-pale)}
+.qmode-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;font-family:'Georgia',serif}
+.qmode-sub{font-size:11px;color:var(--text3);font-family:'Segoe UI',sans-serif}
+.progress-bar{height:3px;background:var(--border);border-radius:2px;margin-bottom:1.5rem;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:2px;transition:width .35s}
+.quiz-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.75rem;margin-bottom:1rem}
+.quiz-q{font-size:16px;font-weight:600;color:var(--text);margin-bottom:1.5rem;line-height:1.6;font-family:'Georgia',serif}
+.quiz-q code{background:var(--bg2);padding:4px 12px;border-radius:6px;font-family:monospace;font-size:16px;color:var(--green);border:1px solid var(--border)}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.quiz-opts{grid-template-columns:1fr}}
+.qopt{padding:13px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:13px;color:var(--text2);text-align:left;line-height:1.4;transition:all .2s;font-family:'Segoe UI',sans-serif}
+.qopt:hover:not(:disabled){border-color:var(--green2);background:var(--green-pale);color:var(--green)}
+.qopt:disabled{cursor:default}
+.qopt.correct{background:var(--green-pale);border-color:var(--green3);color:var(--green)}
+.qopt.wrong{background:rgba(184,50,50,.07);border-color:var(--ppt);color:var(--ppt)}
+.feedback{margin-top:1.25rem;padding:1rem 1.25rem;border-radius:10px;font-size:13px;line-height:1.6;font-family:'Segoe UI',sans-serif}
+.feedback.ok{background:var(--green-pale);border:1px solid var(--green-light);color:var(--green)}
+.feedback.ko{background:rgba(184,50,50,.07);border:1px solid rgba(184,50,50,.3);color:var(--ppt)}
+.score-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:3rem 2rem;text-align:center}
+.score-ring{width:140px;height:140px;border-radius:50%;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:4px solid var(--green-light)}
+.score-n{font-size:36px;font-weight:700;color:#F5F0E8;font-family:'Georgia',serif}
+.score-d{font-size:12px;color:rgba(245,240,232,0.65);font-family:'Segoe UI',sans-serif}
+.score-pct{font-size:28px;font-weight:700;color:var(--green);margin-bottom:.5rem;font-family:'Georgia',serif}
+.score-msg{font-size:14px;color:var(--text3);margin-bottom:2rem;font-family:'Segoe UI',sans-serif}
+.form-panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.75rem;margin-bottom:1.5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:500px){.form-grid{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.flabel{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);font-family:'Segoe UI',sans-serif}
+.finput,.fselect{padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-family:'Segoe UI',sans-serif;width:100%;transition:border .15s}
+.finput:focus,.fselect:focus{outline:none;border-color:var(--green2);box-shadow:0 0 0 3px rgba(44,95,46,.08)}
+.finput::placeholder{color:var(--text4)}
+.fselect option{background:var(--surface)}
+.btn{padding:10px 22px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;font-family:'Segoe UI',sans-serif}
+.btn:hover{background:var(--bg2);color:var(--text)}
+.btn.primary{background:var(--green);border-color:var(--green);color:#F5F0E8}
+.btn.primary:hover{background:var(--green2)}
+.btn.sm{padding:5px 12px;font-size:11px}
+.btn.ghost-red{border-color:rgba(184,50,50,.25);color:var(--ppt)}
+.btn.ghost-red:hover{background:rgba(184,50,50,.07);border-color:var(--ppt)}
+.brow{display:flex;gap:8px;flex-wrap:wrap}
+.empty{padding:3rem 1rem;text-align:center;border:1px dashed var(--border2);border-radius:14px}
+.empty-t{font-size:14px;font-weight:600;color:var(--text3);margin-bottom:6px;font-family:'Georgia',serif}
+.empty-s{font-size:13px;color:var(--text4);font-family:'Segoe UI',sans-serif}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.12);font-family:'Segoe UI',sans-serif}
+.toast.show{opacity:1}
+.toast.ok{background:var(--green-pale);color:var(--green);border:1px solid var(--green-light)}
+.toast.err{background:rgba(184,50,50,.08);color:var(--ppt);border:1px solid rgba(184,50,50,.3)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">⌨</div>
+    <div>
+      <div class="logo-title">M&A Shortcuts</div>
+      <div class="logo-sub">Excel · PowerPoint · Windows</div>
+    </div>
+  </div>
+  <div class="header-stats">
+    <div class="hstat"><div class="hstat-n" id="stat-total">32</div><div class="hstat-l">Raccourcis</div></div>
+    <div class="hstat"><div class="hstat-n" id="stat-score">—</div><div class="hstat-l">Meilleur score</div></div>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="nav-tab active" onclick="showTab('fiches')">Fiches</div>
+  <div class="nav-tab" onclick="showTab('slide')">Mode slide</div>
+  <div class="nav-tab" onclick="showTab('quiz')">Quiz</div>
+  <div class="nav-tab" onclick="showTab('ajouter')">+ Ajouter</div>
+</div>
+
+<div class="main">
+  <div id="tab-fiches"></div>
+  <div id="tab-slide" style="display:none"></div>
+  <div id="tab-quiz" style="display:none"></div>
+  <div id="tab-ajouter" style="display:none"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BASE=[
+  {id:1,cat:'excel',shortcut:'Ctrl + Shift + L',action:'Activer / désactiver les filtres automatiques',hint:'Indispensable pour trier les données dans un modèle'},
+  {id:2,cat:'excel',shortcut:'Alt + =',action:'Somme automatique (AutoSum)',hint:'Sélectionner les cellules avant'},
+  {id:3,cat:'excel',shortcut:'Ctrl + T',action:'Créer un tableau structuré',hint:'Formate et nomme automatiquement la plage'},
+  {id:4,cat:'excel',shortcut:'F4',action:'Répéter action / ancrer référence ($)',hint:'Bascule $A$1 → A$1 → $A1 → A1'},
+  {id:5,cat:'excel',shortcut:'Ctrl + Shift + $',action:'Appliquer le format monétaire',hint:''},
+  {id:6,cat:'excel',shortcut:'Ctrl + Shift + %',action:'Appliquer le format pourcentage',hint:''},
+  {id:7,cat:'excel',shortcut:'Ctrl + 1',action:'Ouvrir la boîte Format de cellule',hint:'Tous les formats en un raccourci'},
+  {id:8,cat:'excel',shortcut:'Alt + H + O + I',action:'Ajuster la largeur de colonne (auto-fit)',hint:'Séquence ruban'},
+  {id:9,cat:'excel',shortcut:'Ctrl + Shift + +',action:'Insérer une ligne ou colonne',hint:'Après sélection de la ligne entière'},
+  {id:10,cat:'excel',shortcut:'Ctrl + -',action:'Supprimer une ligne ou colonne',hint:''},
+  {id:11,cat:'excel',shortcut:'Ctrl + `',action:'Afficher / masquer les formules',hint:'Mode audit — très utile en due dil'},
+  {id:12,cat:'excel',shortcut:'F2',action:'Passer en mode édition de la cellule',hint:'Affiche les dépendances en couleur'},
+  {id:13,cat:'excel',shortcut:'Ctrl + Maj + Fin',action:"Sélectionner jusqu'à la dernière cellule utilisée",hint:''},
+  {id:14,cat:'excel',shortcut:'Ctrl + D',action:'Recopier vers le bas (Fill Down)',hint:''},
+  {id:15,cat:'excel',shortcut:'Ctrl + [',action:'Atteindre les antécédents directs',hint:'Navigation dans les formules complexes'},
+  {id:16,cat:'ppt',shortcut:'B / W',action:'Écran noir / blanc pendant la présentation',hint:'Masque temporairement le contenu'},
+  {id:17,cat:'ppt',shortcut:'Ctrl + G',action:'Grouper les objets sélectionnés',hint:''},
+  {id:18,cat:'ppt',shortcut:'Ctrl + Shift + G',action:'Dégrouper des objets',hint:''},
+  {id:19,cat:'ppt',shortcut:'Ctrl + D',action:'Dupliquer un objet',hint:'Conserve la position avec décalage'},
+  {id:20,cat:'ppt',shortcut:'F5',action:'Lancer le diaporama depuis le début',hint:''},
+  {id:21,cat:'ppt',shortcut:'Shift + F5',action:'Lancer depuis la diapositive courante',hint:'Indispensable en présentation live'},
+  {id:22,cat:'ppt',shortcut:'Ctrl + M',action:'Insérer une nouvelle diapositive',hint:''},
+  {id:23,cat:'ppt',shortcut:'Ctrl + Shift + C/V',action:"Copier / coller la mise en forme",hint:"Reproduire le style d'un objet"},
+  {id:24,cat:'ppt',shortcut:'Ctrl + Alt + V',action:'Collage spécial',hint:'Choisir le format de collage'},
+  {id:25,cat:'win',shortcut:'Win + D',action:'Afficher / masquer le bureau',hint:'Minimise toutes les fenêtres'},
+  {id:26,cat:'win',shortcut:'Win + L',action:'Verrouiller la session',hint:'Indispensable en salle de conférence'},
+  {id:27,cat:'win',shortcut:'Win + V',action:'Presse-papiers multi-éléments',hint:'Historique des copies'},
+  {id:28,cat:'win',shortcut:'Win + Shift + S',action:"Capture d'écran à rogner",hint:'Enregistre dans le presse-papiers'},
+  {id:29,cat:'win',shortcut:'Alt + Tab',action:'Basculer entre les fenêtres ouvertes',hint:'Garder Alt enfoncé pour choisir'},
+  {id:30,cat:'win',shortcut:'Win + ← / →',action:'Ancrer la fenêtre à gauche ou droite',hint:'Snap Windows'},
+  {id:31,cat:'win',shortcut:'Ctrl + Shift + Esc',action:'Ouvrir le Gestionnaire des tâches',hint:'Direct, sans Ctrl+Alt+Suppr'},
+  {id:32,cat:'win',shortcut:'Win + E',action:"Ouvrir l'Explorateur de fichiers",hint:''},
+];
+
+const CLABELS={excel:'Excel',ppt:'PowerPoint',win:'Windows',custom:'Excel'};
+const CBADGE={excel:'cbx-excel',ppt:'cbx-ppt',win:'cbx-win',custom:'cbx-excel'};
+const CATBAR={excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win',custom:'cbar-excel'};
+
+let custom=JSON.parse(localStorage.getItem('ma_custom')||'[]');
+let nextId=parseInt(localStorage.getItem('ma_nextid')||'1000');
+let flipped=new Set();
+let currentFilter='all';
+let slideIdx=0,slideFlipped=false,slideFilter='all';
+let quizState=null,quizResults=[],quizMode='shortcut';
+let editingId=null;
+let bestScore=parseInt(localStorage.getItem('ma_best')||'0');
+
+function save(){localStorage.setItem('ma_custom',JSON.stringify(custom));localStorage.setItem('ma_nextid',String(nextId));}
+function all(){return[...BASE,...custom];}
+function filtered(f){return f==='all'?all():all().filter(d=>d.cat===f);}
+function catLabel(cat){return{excel:'Excel',ppt:'PowerPoint',win:'Windows'}[cat]||'Excel';}
+function catBadge(cat){return{excel:'cbx-excel',ppt:'cbx-ppt',win:'cbx-win'}[cat]||'cbx-excel';}
+function catBar(cat){return{excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win'}[cat]||'cbar-excel';}
+
+function updateStats(){
+  document.getElementById('stat-total').textContent=all().length;
+  document.getElementById('stat-score').textContent=bestScore?bestScore+'%':'—';
+}
+function badge(cat){return`<span class="cbadge ${catBadge(cat)}">${catLabel(cat)}</span>`;}
+
+function showTab(t){
+  ['fiches','slide','quiz','ajouter'].forEach(x=>{document.getElementById('tab-'+x).style.display=x===t?'block':'none';});
+  document.querySelectorAll('.nav-tab').forEach((el,i)=>{el.classList.toggle('active',['fiches','slide','quiz','ajouter'][i]===t);});
+  if(t==='fiches')renderFiches();
+  if(t==='slide'){slideIdx=0;slideFlipped=false;renderSlide();}
+  if(t==='quiz')renderQuizModeSelect();
+  if(t==='ajouter')renderAjouter();
+}
+
+function renderFiches(){
+  const cards=filtered(currentFilter);
+  const cnt=f=>all().filter(c=>c.cat===f).length;
+  let html=`<div class="filter-bar">
+    <button class="filter-btn fb-all ${currentFilter==='all'?'on':''}" onclick="setFilter('all')">Tous (${all().length})</button>
+    <button class="filter-btn fb-excel ${currentFilter==='excel'?'on':''}" onclick="setFilter('excel')">Excel (${cnt('excel')})</button>
+    <button class="filter-btn fb-ppt ${currentFilter==='ppt'?'on':''}" onclick="setFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
+    <button class="filter-btn fb-win ${currentFilter==='win'?'on':''}" onclick="setFilter('win')">Windows (${cnt('win')})</button>
+  </div>
+  <div class="stitle">Fiches de révision — cliquer pour retourner</div>
+  <div class="cards-grid">`;
+  if(!cards.length){
+    html+=`<div class="empty" style="grid-column:1/-1"><div class="empty-t">Aucune fiche</div><div class="empty-s">Ajoutez des raccourcis via "+ Ajouter"</div></div>`;
+  } else {
+    cards.forEach(d=>{
+      const isC=!!custom.find(c=>c.id===d.id);
+      html+=`<div class="card-wrap${flipped.has(d.id)?' flipped':''}" onclick="flipCard(${d.id})">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="cat-bar ${catBar(d.cat)}"></div>
+            <div class="card-top">
+              ${badge(d.cat)}
+              ${isC?`<div onclick="event.stopPropagation()" style="display:flex;gap:3px">
+                <button class="ibtn" onclick="editCard(${d.id})">✏</button>
+                <button class="ibtn del" onclick="deleteCard(${d.id})">✕</button>
+              </div>`:''}
+            </div>
+            <div class="card-shortcut">${d.shortcut}</div>
+            <div class="card-hint">${d.hint||'&nbsp;'}</div>
+            <div class="card-flip-hint">retourner →</div>
+          </div>
+          <div class="card-face card-back">
+            ${badge(d.cat)}
+            <div class="card-back-action">${d.action}</div>
+            <div class="card-back-short">${d.shortcut}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+  }
+  html+='</div>';
+  document.getElementById('tab-fiches').innerHTML=html;
+  updateStats();
+}
+function flipCard(id){if(flipped.has(id))flipped.delete(id);else flipped.add(id);renderFiches();}
+function setFilter(f){currentFilter=f;renderFiches();}
+
+function renderSlide(){
+  const cards=filtered(slideFilter);
+  const el=document.getElementById('tab-slide');
+  if(!cards.length){el.innerHTML=`<div class="empty"><div class="empty-t">Aucune fiche</div></div>`;return;}
+  const idx=Math.min(slideIdx,cards.length-1);
+  const d=cards[idx];
+  const dots=cards.length<=20?cards.map((_,i)=>`<div class="sdot${i===idx?' on':''}" onclick="goSlide(${i})"></div>`).join(''):`<span class="slide-counter">${idx+1} / ${cards.length}</span>`;
+
+  let html=`<div class="filter-bar">
+    <button class="filter-btn fb-all ${slideFilter==='all'?'on':''}" onclick="setSlideFilter('all')">Tous</button>
+    <button class="filter-btn fb-excel ${slideFilter==='excel'?'on':''}" onclick="setSlideFilter('excel')">Excel</button>
+    <button class="filter-btn fb-ppt ${slideFilter==='ppt'?'on':''}" onclick="setSlideFilter('ppt')">PowerPoint</button>
+    <button class="filter-btn fb-win ${slideFilter==='win'?'on':''}" onclick="setSlideFilter('win')">Windows</button>
+  </div>
+  <div class="stitle">Mode slide</div>
+  <div style="max-width:640px;margin:0 auto">
+    <div class="big-card${slideFlipped?' flipped':''}" onclick="toggleSlideFlip()">
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+          ${badge(d.cat)}
+          <span style="font-size:12px;color:${slideFlipped?'rgba(245,240,232,0.5)':'var(--text4)'};font-family:sans-serif">${idx+1} / ${cards.length}</span>
+        </div>
+        <div class="cat-bar ${catBar(d.cat)}" style="margin-top:10px"></div>
+      </div>
+      ${!slideFlipped
+        ?`<div class="flip-zone">
+            <div class="big-shortcut">${d.shortcut}</div>
+            ${d.hint?`<div class="big-hint">${d.hint}</div>`:''}
+            <div class="flip-tip">Entrée ou clic pour voir l'action →</div>
+          </div>`
+        :`<div class="flip-zone">
+            <div class="big-action">${d.action}</div>
+            <div class="big-sub">${d.shortcut}</div>
+            <div class="flip-tip-inv">Entrée ou clic pour retourner ←</div>
+          </div>`
+      }
+    </div>
+    <div class="slide-nav">
+      <button class="snav-btn" onclick="prevSlide()" ${idx===0?'disabled':''}>← Précédent</button>
+      <div class="slide-dots">${dots}</div>
+      <button class="snav-btn" onclick="nextSlide()" ${idx===cards.length-1?'disabled':''}>Suivant →</button>
+    </div>
+    <div class="kbd-hint">
+      <span><span class="kbd">←</span> Précédent</span>
+      <span><span class="kbd">Entrée</span> Retourner</span>
+      <span><span class="kbd">→</span> Suivant</span>
+    </div>
+  </div>`;
+  el.innerHTML=html;
+
+  let tx=0;
+  const bc=el.querySelector('.big-card');
+  bc.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+  bc.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50){if(dx<0)nextSlide();else prevSlide();}},{passive:true});
+}
+function goSlide(i){slideIdx=i;slideFlipped=false;renderSlide();}
+function prevSlide(){if(slideIdx>0){slideIdx--;slideFlipped=false;renderSlide();}}
+function nextSlide(){const cards=filtered(slideFilter);if(slideIdx<cards.length-1){slideIdx++;slideFlipped=false;renderSlide();}}
+function toggleSlideFlip(){slideFlipped=!slideFlipped;renderSlide();}
+function setSlideFilter(f){slideFilter=f;slideIdx=0;slideFlipped=false;renderSlide();}
+
+document.addEventListener('keydown',e=>{
+  const slideVisible=document.getElementById('tab-slide').style.display!=='none';
+  if(!slideVisible)return;
+  if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleSlideFlip();}
+  if(e.key==='ArrowRight'){e.preventDefault();nextSlide();}
+  if(e.key==='ArrowLeft'){e.preventDefault();prevSlide();}
+});
+
+function renderQuizModeSelect(){
+  document.getElementById('tab-quiz').innerHTML=`
+  <div class="stitle">Choisir le mode de quiz</div>
+  <div class="quiz-mode-sel">
+    <div class="qmode-btn${quizMode==='shortcut'?' selected':''}" onclick="selectQMode('shortcut')">
+      <div class="qmode-title">Raccourci → Action</div>
+      <div class="qmode-sub">On vous montre le raccourci, trouvez ce qu'il fait</div>
+    </div>
+    <div class="qmode-btn${quizMode==='action'?' selected':''}" onclick="selectQMode('action')">
+      <div class="qmode-title">Action → Raccourci</div>
+      <div class="qmode-sub">On vous décrit l'action, trouvez le raccourci</div>
+    </div>
+    <div class="qmode-btn${quizMode==='mixed'?' selected':''}" onclick="selectQMode('mixed')">
+      <div class="qmode-title">Mode mixte</div>
+      <div class="qmode-sub">Les deux sens mélangés aléatoirement</div>
+    </div>
+  </div>
+  <button class="btn primary" onclick="startQuiz()">Lancer le quiz →</button>`;
+}
+function selectQMode(m){quizMode=m;renderQuizModeSelect();}
+
+function startQuiz(){
+  const pool=all();if(pool.length<4){showToast('Pas assez de fiches','err');return;}
+  quizResults=[];
+  quizState={questions:shuffle(pool).slice(0,Math.min(12,pool.length)),idx:0,answered:false,chosen:null};
+  renderQuiz();
+}
+function getType(idx){if(quizMode==='shortcut')return'shortcut';if(quizMode==='action')return'action';return idx%2===0?'shortcut':'action';}
+
+function renderQuiz(){
+  const el=document.getElementById('tab-quiz');
+  if(!quizState){renderQuizModeSelect();return;}
+  const{questions,idx,answered,chosen}=quizState;
+  if(idx>=questions.length){
+    const score=quizResults.filter(r=>r).length;
+    const pct=Math.round(score/quizResults.length*100);
+    if(pct>bestScore){bestScore=pct;localStorage.setItem('ma_best',String(bestScore));updateStats();}
+    const msg=pct>=80?'Excellent ! Vous maîtrisez les raccourcis.':pct>=60?'Très bien ! Encore un peu de pratique.':pct>=40?'Pas mal ! Continuez à réviser.':'Continuez, vous y êtes presque !';
+    el.innerHTML=`<div class="score-box">
+      <div class="score-ring"><div class="score-n">${score}/${quizResults.length}</div><div class="score-d">réponses</div></div>
+      <div class="score-pct">${pct}%</div>
+      <div class="score-msg">${msg}</div>
+      <div class="brow" style="justify-content:center">
+        <button class="btn primary" onclick="startQuiz()">Rejouer</button>
+        <button class="btn" onclick="renderQuizModeSelect()">Changer de mode</button>
+        <button class="btn" onclick="showTab('fiches')">Revoir les fiches</button>
+      </div>
+    </div>`;return;
+  }
+  const q=questions[idx];const total=questions.length;
+  const pct=Math.round(idx/total*100);
+  const type=getType(idx);
+  const decoys=shuffle(all().filter(d=>d.id!==q.id)).slice(0,3);
+  const opts=shuffle([q,...decoys]);
+  let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.875rem">
+    <span style="font-size:12px;color:var(--text3);font-weight:600;font-family:sans-serif">Question ${idx+1} / ${total}</span>
+    <div style="display:flex;align-items:center;gap:8px">${badge(q.cat)}<span style="font-size:11px;color:var(--text4);font-family:sans-serif">${type==='shortcut'?'Raccourci → Action':'Action → Raccourci'}</span></div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+  <div class="quiz-box">
+    <div class="quiz-q">${type==='shortcut'
+      ?`À quoi correspond ce raccourci ?<br><code>${q.shortcut}</code>`
+      :`Quel raccourci permet de :<br><span style="color:var(--text3);font-weight:400;font-size:14px;font-style:italic;font-family:sans-serif">${q.action}</span>`
+    }</div>
+    <div class="quiz-opts">`;
+  opts.forEach(o=>{
+    const label=type==='shortcut'?o.action:o.shortcut;
+    let cls='';
+    if(answered){if(o.id===q.id)cls='correct';else if(o.id===chosen)cls='wrong';}
+    html+=`<button class="qopt ${cls}" ${answered?'disabled':''} onclick="answerQuiz(${o.id},${q.id})">${label}</button>`;
+  });
+  html+='</div>';
+  if(answered){
+    const ok=chosen===q.id;
+    html+=`<div class="feedback ${ok?'ok':'ko'}">${ok?'✓ Correct !':'✗ Pas tout à fait.'} <strong>${q.shortcut}</strong> → ${q.action}</div>
+    <div style="margin-top:1rem"><button class="btn primary" onclick="nextQ()">Suivant →</button></div>`;
+  }
+  html+='</div>';
+  el.innerHTML=html;
+}
+function answerQuiz(chosen,correct){quizResults.push(chosen===correct);quizState.answered=true;quizState.chosen=chosen;renderQuiz();}
+function nextQ(){quizState.idx++;quizState.answered=false;quizState.chosen=null;renderQuiz();}
+
+function renderAjouter(){
+  const isEdit=editingId!==null;
+  const card=isEdit?custom.find(c=>c.id===editingId):null;
+  document.getElementById('tab-ajouter').innerHTML=`
+  <div class="stitle">${isEdit?'Modifier le raccourci':'Ajouter un raccourci'}</div>
+  <div class="form-panel">
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="flabel">Raccourci clavier *</label>
+        <input class="finput" id="f-s" placeholder="ex: Ctrl + Shift + F" style="font-family:monospace" value="${isEdit?card.shortcut:''}">
+      </div>
+      <div class="form-group">
+        <label class="flabel">Catégorie</label>
+        <select class="fselect" id="f-c">
+          <option value="excel" ${!isEdit||card.cat==='excel'?'selected':''}>Excel</option>
+          <option value="ppt" ${isEdit&&card.cat==='ppt'?'selected':''}>PowerPoint</option>
+          <option value="win" ${isEdit&&card.cat==='win'?'selected':''}>Windows</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px">
+      <label class="flabel">Description *</label>
+      <input class="finput" id="f-a" placeholder="ex: Rechercher et remplacer dans tout le classeur" value="${isEdit?card.action:''}">
+    </div>
+    <div class="form-group" style="margin-bottom:1.5rem">
+      <label class="flabel">Astuce (optionnel)</label>
+      <input class="finput" id="f-h" placeholder="ex: Fonctionne aussi dans PPT" value="${isEdit&&card.hint?card.hint:''}">
+    </div>
+    <div class="brow">
+      <button class="btn primary" onclick="saveCard()">${isEdit?'Mettre à jour':'Enregistrer'}</button>
+      ${isEdit?`<button class="btn" onclick="cancelEdit()">Annuler</button>`:''}
+    </div>
+  </div>`;
+}
+
+function saveCard(){
+  const s=document.getElementById('f-s').value.trim();
+  const a=document.getElementById('f-a').value.trim();
+  const c=document.getElementById('f-c').value;
+  const h=document.getElementById('f-h').value.trim();
+  if(!s||!a){showToast('Raccourci et description sont obligatoires','err');return;}
+  if(editingId!==null){
+    const i=custom.findIndex(x=>x.id===editingId);
+    if(i>-1)custom[i]={id:editingId,cat:c,shortcut:s,action:a,hint:h};
+    editingId=null;showToast('Raccourci mis à jour !');
+  } else {
+    custom.push({id:nextId++,cat:c,shortcut:s,action:a,hint:h});
+    showToast('Raccourci ajouté !');
+  }
+  save();updateStats();showTab('fiches');
+}
+function editCard(id){editingId=id;showTab('ajouter');}
+function cancelEdit(){editingId=null;renderAjouter();}
+function deleteCard(id){custom=custom.filter(c=>c.id!==id);flipped.delete(id);save();showToast('Raccourci supprimé');updateStats();renderFiches();}
+function shuffle(arr){return[...arr].sort(()=>Math.random()-.5);}
+function showToast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className=`toast show ${type}`;
+  setTimeout(()=>{t.className='toast';},2500);
+}
+
+updateStats();
+renderFiches();
+</script>
+</body>
+</html>
