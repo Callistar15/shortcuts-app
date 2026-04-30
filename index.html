@@ -231,6 +231,22 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .toast.show{opacity:1}
 .toast.ok{background:var(--green-pale);color:var(--green);border:1px solid var(--green-light)}
 .toast.err{background:var(--unknown-bg);color:var(--unknown);border:1px solid var(--unknown-border)}
+/* BADGES BANDEAU */
+.badges-bandeau{background:var(--bg2);border-bottom:1px solid var(--border);padding:.6rem 2.5rem;display:flex;align-items:center;gap:1.5rem}
+.badges-bandeau-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text4);white-space:nowrap;font-family:'Segoe UI',sans-serif}
+.badges-bandeau-row{display:flex;gap:.5rem;align-items:center;flex:1;justify-content:space-between}
+.bdg{display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;flex:1;cursor:default}
+.bdg.unlocked{cursor:pointer}
+.bdg svg{transition:transform .2s}
+.bdg.locked svg{filter:grayscale(1) opacity(0.2)}
+.bdg.unlocked:hover svg{transform:scale(1.15)}
+.bdg-name{font-size:9px;font-family:'Segoe UI',sans-serif;color:var(--text4);text-align:center;white-space:nowrap}
+.bdg.unlocked .bdg-name{color:var(--text3)}
+.bdg-tip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 12px;font-size:11px;font-family:'Segoe UI',sans-serif;color:var(--text);white-space:nowrap;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.bdg-tip strong{font-weight:600;display:block;margin-bottom:2px}
+.bdg-tip small{color:var(--text3);font-size:10px}
+.bdg:hover .bdg-tip{display:block}
+@media(max-width:640px){.badges-bandeau{padding:.6rem 1rem;gap:.75rem}.badges-bandeau-label{display:none}}
 </style>
 </head>
 <body>
@@ -262,6 +278,11 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
   <div class="nav-tab active" onclick="showTab('fiches')">Fiches</div>
   <div class="nav-tab" onclick="showTab('slide')">Mode slide</div>
   <div class="nav-tab" onclick="showTab('quiz')">Quiz</div>
+</div>
+
+<div class="badges-bandeau">
+  <div class="badges-bandeau-label">Badges</div>
+  <div class="badges-bandeau-row" id="badges-bandeau-row"></div>
 </div>
 
 <div class="main">
@@ -322,7 +343,7 @@ const BASE=[
   {id:46,cat:'excel',shortcut:'Ctrl + B',action:'Mettre en gras',hint:''},
   {id:47,cat:'excel',shortcut:'Ctrl + I',action:'Mettre en italique',hint:''},
   {id:48,cat:'excel',shortcut:'Ctrl + U',action:'Souligner',hint:''},
-  {id:49,cat:'excel',shortcut:'Ctrl + 1',action:'Ouvrir la boîte Format de cellule',hint:'Tous les formats en un raccourci'},
+  {id:49,cat:'excel',shortcut:'Ctrl + Shift + 1',action:'Ouvrir la boîte Format de cellule',hint:'Tous les formats en un raccourci'},
   {id:50,cat:'excel',shortcut:'Ctrl + Shift + $',action:'Appliquer le format monétaire',hint:''},
   {id:51,cat:'excel',shortcut:'Ctrl + Shift + %',action:'Appliquer le format pourcentage',hint:''},
   {id:52,cat:'excel',shortcut:'Ctrl + Shift + #',action:'Appliquer le format de date',hint:''},
@@ -418,6 +439,55 @@ function badge(c){return`<span class="cbadge ${catBadge(c)}">${catLabel(c)}</spa
 const LV_LABEL={mastered:'Maîtrisé',learning:'En cours',unknown:'À revoir',unset:'Non évalué'};
 const LV_DOT={mastered:'dot-mastered',learning:'dot-learning',unknown:'dot-unknown',unset:'dot-unset'};
 
+// ── BADGES ──
+const BADGES_DEF=[
+  {id:'souris',name:'Souris Addict',pct:0,desc:'Dès le début',color:'#9AA89B',
+    draw:(g,c)=>{g.innerHTML=`<rect x="-10" y="-12" width="20" height="24" rx="10" fill="none" stroke="${c}" stroke-width="2"/><line x1="0" y1="-6" x2="0" y2="2" stroke="${c}" stroke-width="2" stroke-linecap="round"/><line x1="-10" y1="-1" x2="10" y2="-1" stroke="${c}" stroke-width="1.2"/><path d="M 0,-12 Q 0,-18 5,-20" fill="none" stroke="${c}" stroke-width="1.5" stroke-linecap="round"/>`;}},
+  {id:'ctrl',name:'Ctrl + Tout',pct:25,desc:'25% maîtrisé',color:'#22863a',
+    draw:(g,c)=>{g.innerHTML=`<polygon points="0,-14 -10,-4 10,-4" fill="${c}" opacity="0.8"/><rect x="-12" y="-4" width="24" height="4" rx="2" fill="${c}" opacity="0.5"/><circle cx="0" cy="-16" r="3" fill="${c}"/><circle cx="0" cy="8" r="13" fill="#FDFAF4" stroke="${c}" stroke-width="2"/><circle cx="-5" cy="5" r="3.5" fill="none" stroke="${c}" stroke-width="1.5"/><circle cx="-5" cy="5" r="1.2" fill="${c}"/><circle cx="5" cy="5" r="3.5" fill="none" stroke="${c}" stroke-width="1.5"/><circle cx="5" cy="5" r="1.2" fill="${c}"/><circle cx="0" cy="10" r="3" fill="#B83232"/><path d="M -6,15 Q 0,21 6,15" fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/><path d="M -13,4 Q -18,-2 -15,-8 Q -12,-4 -13,4" fill="${c}" opacity="0.6"/><path d="M 13,4 Q 18,-2 15,-8 Q 12,-4 13,4" fill="${c}" opacity="0.6"/>`;}},
+  {id:'equilibre',name:"À l'équilibre",pct:50,desc:'50% maîtrisé',color:'#b45309',
+    draw:(g,c)=>{g.innerHTML=`<line x1="0" y1="18" x2="0" y2="-6" stroke="${c}" stroke-width="2" stroke-linecap="round"/><line x1="-10" y1="18" x2="10" y2="18" stroke="${c}" stroke-width="2.5" stroke-linecap="round"/><circle cx="0" cy="-6" r="2.5" fill="${c}"/><line x1="-19" y1="-6" x2="19" y2="-6" stroke="${c}" stroke-width="2" stroke-linecap="round"/><line x1="-19" y1="-6" x2="-19" y2="4" stroke="${c}" stroke-width="1.5" stroke-linecap="round"/><path d="M -25,4 Q -19,8 -13,4" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/><line x1="19" y1="-6" x2="19" y2="4" stroke="${c}" stroke-width="1.5" stroke-linecap="round"/><path d="M 13,4 Q 19,8 25,4" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/><rect x="-23" y="-2" width="8" height="6" rx="1.5" fill="none" stroke="${c}" stroke-width="1.2" opacity="0.6"/><rect x="15" y="-2" width="8" height="6" rx="1.5" fill="none" stroke="${c}" stroke-width="1.2" opacity="0.6"/><polygon points="0,-12 1.2,-9 4,-9 2,-7 2.8,-4 0,-5.5 -2.8,-4 -2,-7 -4,-9 -1.2,-9" fill="${c}" opacity="0.7"/>`;}},
+  {id:'lando',name:'Lando Norris',pct:75,desc:'75% maîtrisé',color:'#B83232',
+    draw:(g,c)=>{g.innerHTML=`<path d="M -12,-16 Q -14,2 -8,10 Q -4,16 0,16 Q 4,16 8,10 Q 14,2 12,-16 Z" fill="none" stroke="${c}" stroke-width="2" stroke-linejoin="round"/><line x1="-12" y1="-16" x2="12" y2="-16" stroke="${c}" stroke-width="2" stroke-linecap="round"/><path d="M -12,-8 Q -20,-6 -20,2 Q -20,8 -12,6" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/><path d="M 12,-8 Q 20,-6 20,2 Q 20,8 12,6" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/><line x1="0" y1="16" x2="0" y2="20" stroke="${c}" stroke-width="2" stroke-linecap="round"/><line x1="-8" y1="20" x2="8" y2="20" stroke="${c}" stroke-width="2.5" stroke-linecap="round"/><polygon points="0,-6 1.5,-2 5,-2 2.5,0 3.5,4 0,2 -3.5,4 -2.5,0 -5,-2 -1.5,-2" fill="${c}" opacity="0.85"/>`;}},
+  {id:'lumiere',name:'299 792 km/s',pct:90,desc:'90% maîtrisé',color:'#7C6FAB',
+    draw:(g,c)=>{g.innerHTML=`<path d="M -24,16 Q -8,2 8,-10" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round" opacity="0.12"/><path d="M -20,14 Q -6,0 8,-10" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round" opacity="0.2"/><path d="M -14,10 Q -2,-1 8,-10" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" opacity="0.4"/><path d="M -6,4 Q 2,-4 8,-10" fill="none" stroke="${c}" stroke-width="1.2" stroke-linecap="round" opacity="0.65"/><polygon points="8,-10 11,-4 17,-4 12,0 14,6 8,2 2,6 4,0 -1,-4 5,-4" fill="${c}"/><circle cx="-18" cy="14" r="1.2" fill="${c}" opacity="0.5"/><circle cx="-10" cy="8" r="1" fill="${c}" opacity="0.4"/><circle cx="-2" cy="1" r="1.2" fill="${c}" opacity="0.4"/>`;}},
+  {id:'wizard',name:'Macro Wizard',pct:100,desc:'100% maîtrisé',color:'#C9A84C',
+    draw:(g,c)=>{g.innerHTML=`<polygon points="0,-28 -12,4 12,4" fill="none" stroke="${c}" stroke-width="2.2" stroke-linejoin="round"/><rect x="-15" y="4" width="30" height="6" rx="3" fill="none" stroke="${c}" stroke-width="2.2"/><circle cx="0" cy="-30" r="3" fill="${c}"/><polygon points="0,-20 1.5,-16 5,-16 2.5,-14 3.5,-10 0,-12 -3.5,-10 -2.5,-14 -5,-16 -1.5,-16" fill="${c}" opacity="0.9"/><line x1="16" y1="-8" x2="20" y2="-13" stroke="${c}" stroke-width="1.5" stroke-linecap="round"/><line x1="18" y1="-6" x2="23" y2="-6" stroke="${c}" stroke-width="1.5" stroke-linecap="round"/><line x1="-16" y1="2" x2="-20" y2="-3" stroke="${c}" stroke-width="1.5" stroke-linecap="round"/><line x1="-4" y1="12" x2="-14" y2="22" stroke="${c}" stroke-width="2" stroke-linecap="round"/><circle cx="-4" cy="12" r="2.5" fill="${c}"/>`;}},
+];
+
+function renderBadgesBandeau(){
+  const pct=parseInt(document.getElementById('hprog-pct').textContent)||0;
+  const row=document.getElementById('badges-bandeau-row');
+  if(!row)return;
+  row.innerHTML='';
+  const ns='http://www.w3.org/2000/svg';
+  BADGES_DEF.forEach(b=>{
+    const unlocked=pct>=b.pct;
+    const div=document.createElement('div');
+    div.className='bdg '+(unlocked?'unlocked':'locked');
+    const svg=document.createElementNS(ns,'svg');
+    svg.setAttribute('width','48');svg.setAttribute('height','48');
+    svg.setAttribute('viewBox','-38 -38 76 76');
+    const hex=document.createElementNS(ns,'polygon');
+    hex.setAttribute('points','0,-32 28,-16 28,16 0,32 -28,16 -28,-16');
+    hex.setAttribute('fill',unlocked?b.color+'20':'transparent');
+    hex.setAttribute('stroke',unlocked?b.color:'#C8BFA8');
+    hex.setAttribute('stroke-width','1.8');
+    svg.appendChild(hex);
+    const g=document.createElementNS(ns,'g');
+    b.draw(g,unlocked?b.color:'#C8BFA8');
+    svg.appendChild(g);
+    const tip=document.createElement('div');
+    tip.className='bdg-tip';
+    tip.innerHTML=`<strong>${b.name}</strong><small>${unlocked?'Débloqué ✓':b.desc+' requis'}</small>`;
+    const name=document.createElement('div');
+    name.className='bdg-name';
+    name.textContent=b.name;
+    div.appendChild(svg);div.appendChild(tip);div.appendChild(name);
+    row.appendChild(div);
+  });
+}
+
 function updateStats(){
   const a=all();
   const nMastered=a.filter(d=>getLevel(d.id)==='mastered').length;
@@ -434,6 +504,7 @@ function updateStats(){
   // segments
   const segs=document.getElementById('hprog-segs');
   segs.innerHTML=a.map(d=>`<div class="hprog-seg ${getLevel(d.id)}"></div>`).join('');
+  renderBadgesBandeau();
 }
 
 function showTab(t){
