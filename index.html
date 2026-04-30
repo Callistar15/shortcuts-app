@@ -12,7 +12,7 @@
   --green:#2C5F2E;--green2:#3A7A3D;--green3:#4E9E52;
   --green-pale:#E8F2E8;--green-light:#C5DFC6;
   --beige3:#D4C9B0;--text:#1C2B1D;--text2:#3D4F3E;--text3:#6B7D6C;--text4:#9AA89B;
-  --excel:#1D5FA8;--ppt:#B83232;--win:#2C5F2E;
+  --excel:#1D5FA8;--ppt:#B83232;--win:#2C5F2E;--web:#6B21A8;
   --mastered:#22863a;--mastered-bg:#e6f4ea;--mastered-border:#a8d5b5;
   --learning:#b45309;--learning-bg:#fef3e2;--learning-border:#f0c070;
   --unknown:#b91c1c;--unknown-bg:#fde8e8;--unknown-border:#f0a0a0;
@@ -101,6 +101,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .fb-excel.on{background:rgba(29,95,168,.1);border-color:var(--excel);color:var(--excel)}
 .fb-ppt.on{background:rgba(184,50,50,.1);border-color:var(--ppt);color:var(--ppt)}
 .fb-win.on{background:var(--green-pale);border-color:var(--green3);color:var(--green)}
+.fb-web.on{background:rgba(107,33,168,.1);border-color:#6B21A8;color:#6B21A8}
 .level-bar{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
 .lbtn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:'Segoe UI',sans-serif;display:flex;align-items:center;gap:6px}
 .lbtn:hover{border-color:var(--border2)}
@@ -124,13 +125,14 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .card-wrap.lv-learning .card-front{border-left:3px solid var(--learning)}
 .card-wrap.lv-unknown .card-front{border-left:3px solid var(--unknown)}
 .cat-bar{height:2px;border-radius:1px;margin-bottom:10px}
-.cbar-excel{background:var(--excel)}.cbar-ppt{background:var(--ppt)}.cbar-win{background:var(--win)}
+.cbar-excel{background:var(--excel)}.cbar-ppt{background:var(--ppt)}.cbar-win{background:var(--win)}.cbar-web{background:#6B21A8}
 .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .card-top-left{display:flex;align-items:center;gap:6px;position:relative}
 .cbadge{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-family:'Segoe UI',sans-serif}
 .cbx-excel{background:rgba(29,95,168,.1);color:var(--excel)}
 .cbx-ppt{background:rgba(184,50,50,.1);color:var(--ppt)}
 .cbx-win{background:var(--green-pale);color:var(--green)}
+.cbx-web{background:rgba(107,33,168,.1);color:#6B21A8}
 .lv-flag{width:22px;height:22px;border-radius:50%;cursor:pointer;flex-shrink:0;border:2px solid transparent;transition:transform .15s;-webkit-tap-highlight-color:transparent}
 .lv-flag:hover{transform:scale(1.2)}
 .lv-flag:active{transform:scale(0.95)}
@@ -256,7 +258,7 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
     <div class="logo-icon">⌨</div>
     <div>
       <div class="logo-title">M&A Shortcuts</div>
-      <div class="logo-sub">Excel · PowerPoint · Windows</div>
+      <div class="logo-sub">Excel · PowerPoint · Windows · Web</div>
     </div>
   </div>
   <div class="header-right">
@@ -385,6 +387,15 @@ const BASE=[
   {id:88,cat:'win',shortcut:'Win + ← / →',action:'Ancrer la fenêtre à gauche ou droite',hint:'Snap Windows'},
   {id:89,cat:'win',shortcut:'Ctrl + Shift + Esc',action:'Ouvrir le Gestionnaire des tâches',hint:''},
   {id:90,cat:'win',shortcut:'Win + E',action:"Ouvrir l'Explorateur de fichiers",hint:''},
+  // ── WEB (Chrome / Edge) ──
+  {id:91,cat:'web',shortcut:'Ctrl + T',action:'Ouvrir un nouvel onglet',hint:''},
+  {id:92,cat:'web',shortcut:'Ctrl + W',action:'Fermer l\'onglet actuel',hint:''},
+  {id:93,cat:'web',shortcut:'Ctrl + Shift + T',action:'Rouvrir le dernier onglet fermé',hint:'Peut être répété plusieurs fois'},
+  {id:94,cat:'web',shortcut:'Ctrl + 1 à 9',action:'Aller directement à un onglet précis',hint:'Ctrl+1 = 1er, Ctrl+9 = dernier'},
+  {id:95,cat:'web',shortcut:'Ctrl + Shift + Tab',action:'Passer à l\'onglet précédent',hint:''},
+  {id:97,cat:'web',shortcut:'Ctrl + L',action:'Aller directement à la barre d\'adresse',hint:'Sélectionne l\'URL en entier'},
+  {id:98,cat:'web',shortcut:'Alt + ←',action:'Page précédente (historique)',hint:''},
+  {id:99,cat:'web',shortcut:'Alt + →',action:'Page suivante (historique)',hint:''},
 ];
 
 // ── STATE ──
@@ -432,9 +443,9 @@ function filteredCards(f,lf,q){
   return cards;
 }
 
-function catLabel(c){return{excel:'Excel',ppt:'PowerPoint',win:'Windows'}[c]||'Excel';}
-function catBadge(c){return{excel:'cbx-excel',ppt:'cbx-ppt',win:'cbx-win'}[c]||'cbx-excel';}
-function catBar(c){return{excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win'}[c]||'cbar-excel';}
+function catLabel(c){return{excel:'Excel',ppt:'PowerPoint',win:'Windows',web:'Web'}[c]||'Web';}
+function catBadge(c){return{excel:'cbx-excel',ppt:'cbx-ppt',win:'cbx-win',web:'cbx-web'}[c]||'cbx-web';}
+function catBar(c){return{excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win',web:'cbar-web'}[c]||'cbar-web';}
 function badge(c){return`<span class="cbadge ${catBadge(c)}">${catLabel(c)}</span>`;}
 const LV_LABEL={mastered:'Maîtrisé',learning:'En cours',unknown:'À revoir',unset:'Non évalué'};
 const LV_DOT={mastered:'dot-mastered',learning:'dot-learning',unknown:'dot-unknown',unset:'dot-unset'};
@@ -535,6 +546,7 @@ function renderFiches(){
     <button class="filter-btn fb-excel ${currentFilter==='excel'?'on':''}" onclick="setFilter('excel')">Excel (${cnt('excel')})</button>
     <button class="filter-btn fb-ppt ${currentFilter==='ppt'?'on':''}" onclick="setFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
     <button class="filter-btn fb-win ${currentFilter==='win'?'on':''}" onclick="setFilter('win')">Windows (${cnt('win')})</button>
+    <button class="filter-btn fb-web ${currentFilter==='web'?'on':''}" onclick="setFilter('web')">Web (${cnt('web')})</button>
   </div>
   <div class="level-bar">
     <button class="lbtn ${levelFilter==='all'?'on-unset':''}" onclick="setLevelFilter('all')"><span class="dot dot-unset"></span>Tous</button>
@@ -642,6 +654,7 @@ function slideFilterBar(){
     <button class="filter-btn fb-excel ${slideFilter==='excel'?'on':''}" onclick="setSlideFilter('excel')">Excel (${cnt('excel')})</button>
     <button class="filter-btn fb-ppt ${slideFilter==='ppt'?'on':''}" onclick="setSlideFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
     <button class="filter-btn fb-win ${slideFilter==='win'?'on':''}" onclick="setSlideFilter('win')">Windows (${cnt('win')})</button>
+    <button class="filter-btn fb-web ${slideFilter==='web'?'on':''}" onclick="setSlideFilter('web')">Web (${cnt('web')})</button>
   </div>`;
 }
 function slideLevelBar(){
