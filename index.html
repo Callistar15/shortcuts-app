@@ -17,7 +17,21 @@
   --learning:#b45309;--learning-bg:#fef3e2;--learning-border:#f0c070;
   --unknown:#b91c1c;--unknown-bg:#fde8e8;--unknown-border:#f0a0a0;
 }
-body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-height:100vh}
+body.dark{
+  --bg:#0F1410;--bg2:#161D14;--surface:#1A2318;
+  --border:#2A3828;--border2:#3A4E36;
+  --green:#3A7A3D;--green2:#4E9E52;--green3:#6BBF6E;
+  --green-pale:#1A2E1A;--green-light:#2A4A2A;
+  --beige3:#3A4E36;--text:#E8F0E0;--text2:#B8CEB0;--text3:#7A9870;--text4:#4A6840;
+  --mastered:#4CAF72;--mastered-bg:#0D2018;--mastered-border:#2A5A38;
+  --learning:#D4924C;--learning-bg:#201408;--learning-border:#6A4418;
+  --unknown:#E05050;--unknown-bg:#200808;--unknown-border:#6A1818;
+}
+body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+/* DARK MODE TOGGLE */
+.dark-toggle{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 12px;cursor:pointer;font-size:12px;color:rgba(245,240,232,0.8);font-family:'Segoe UI',sans-serif;display:flex;align-items:center;gap:6px;transition:all .2s;white-space:nowrap}
+.dark-toggle:hover{background:rgba(255,255,255,0.2)}
+.dark-toggle .toggle-icon{font-size:14px}
 
 /* HEADER */
 .header{background:var(--green);padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
@@ -262,11 +276,16 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
     </div>
   </div>
   <div class="header-right">
-    <div class="header-stats">
-      <div class="hstat"><div class="hstat-n" id="stat-total">0</div><div class="hstat-l">Total</div></div>
-      <div class="hstat"><div class="hstat-n green" id="stat-mastered">0</div><div class="hstat-l">✓ Maîtrisés</div></div>
-      <div class="hstat"><div class="hstat-n yellow" id="stat-learning">0</div><div class="hstat-l">~ En cours</div></div>
-      <div class="hstat"><div class="hstat-n red" id="stat-unknown">0</div><div class="hstat-l">✗ À revoir</div></div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end">
+      <button class="dark-toggle" onclick="toggleDark()" id="dark-btn">
+        <span class="toggle-icon">🌙</span><span id="dark-label">Mode sombre</span>
+      </button>
+      <div class="header-stats">
+        <div class="hstat"><div class="hstat-n" id="stat-total">0</div><div class="hstat-l">Total</div></div>
+        <div class="hstat"><div class="hstat-n green" id="stat-mastered">0</div><div class="hstat-l">✓ Maîtrisés</div></div>
+        <div class="hstat"><div class="hstat-n yellow" id="stat-learning">0</div><div class="hstat-l">~ En cours</div></div>
+        <div class="hstat"><div class="hstat-n red" id="stat-unknown">0</div><div class="hstat-l">✗ À revoir</div></div>
+      </div>
     </div>
     <div class="header-progress">
       <div class="hprog-label"><span>Progression globale</span><strong id="hprog-pct">0%</strong></div>
@@ -460,6 +479,22 @@ function catBar(c){return{excel:'cbar-excel',ppt:'cbar-ppt',win:'cbar-win',web:'
 function badge(c){return`<span class="cbadge ${catBadge(c)}">${catLabel(c)}</span>`;}
 const LV_LABEL={mastered:'Maîtrisé',learning:'En cours',unknown:'À revoir',unset:'Non évalué'};
 const LV_DOT={mastered:'dot-mastered',learning:'dot-learning',unknown:'dot-unknown',unset:'dot-unset'};
+
+// ── DARK MODE ──
+function toggleDark(){
+  const dark=document.body.classList.toggle('dark');
+  localStorage.setItem('ma_dark',dark?'1':'0');
+  document.getElementById('dark-btn').innerHTML=dark
+    ?'<span class="toggle-icon">☀️</span><span id="dark-label">Mode clair</span>'
+    :'<span class="toggle-icon">🌙</span><span id="dark-label">Mode sombre</span>';
+}
+if(localStorage.getItem('ma_dark')==='1'){
+  document.body.classList.add('dark');
+  document.addEventListener('DOMContentLoaded',()=>{
+    const btn=document.getElementById('dark-btn');
+    if(btn)btn.innerHTML='<span class="toggle-icon">☀️</span><span id="dark-label">Mode clair</span>';
+  });
+}
 
 // ── BADGES ──
 const BADGES_DEF=[
