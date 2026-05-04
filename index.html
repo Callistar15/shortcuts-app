@@ -294,7 +294,144 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .bdg-tip strong{font-weight:600;display:block;margin-bottom:2px}
 .bdg-tip small{color:var(--text3);font-size:10px}
 .bdg:hover .bdg-tip{display:block}
-@media(max-width:640px){.badges-bandeau{padding:.6rem 1rem;gap:.75rem}.badges-bandeau-label{display:none}}
+
+
+/* MOBILE BOTTOM NAV */
+.mobile-nav{
+  display:none;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:var(--green);
+  padding:8px 0 max(8px, env(safe-area-inset-bottom));
+  z-index:100;
+  border-top:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 -2px 16px rgba(0,0,0,.15);
+}
+.mob-tab{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:none;border:none;cursor:pointer;
+  padding:4px 0;
+  color:rgba(245,240,232,0.5);
+  transition:color .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.mob-tab.active{color:#F5F0E8}
+.mob-tab-icon{font-size:20px;line-height:1}
+.mob-tab-label{font-size:10px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+
+  /* Safe area pour iPhone (encoche/Dynamic Island) */
+  body{padding-top:env(safe-area-inset-top)}
+  .header{
+    padding:.875rem max(1rem, env(safe-area-inset-left)) .875rem max(1rem, env(safe-area-inset-right));
+    gap:.5rem;
+  }
+
+  /* HEADER simplifié */
+  .logo-sub{display:none}
+  .logo-icon{width:34px;height:34px;font-size:15px}
+  .logo-title{font-size:14px}
+  .header-right{gap:4px}
+  .header-stats{gap:10px}
+  .hstat-n{font-size:15px}
+  .hstat-l{font-size:8px}
+  .dark-toggle span:last-child{display:none}
+  .dark-toggle{padding:5px 8px}
+  .header-progress{width:120px}
+  .hprog-label span:first-child{display:none}
+  .hprog-segs-wrap{display:none}
+
+  /* NAV — cachée sur mobile, remplacée par menu sous logo */
+  .nav{display:none}
+  .mobile-nav{display:flex}
+
+  /* BADGES — défile horizontalement */
+  .badges-bandeau{
+    padding:.5rem max(.75rem, env(safe-area-inset-left));
+    gap:.5rem;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    flex-wrap:nowrap;
+  }
+  .badges-bandeau::-webkit-scrollbar{display:none}
+  .badges-bandeau-label{display:none}
+  .badges-bandeau-row{flex-wrap:nowrap;justify-content:flex-start;gap:.875rem}
+  .bdg{flex:0 0 auto}
+  .bdg svg{width:40px;height:40px}
+  .bdg-name{font-size:9px}
+
+  /* MAIN avec marges safe area */
+  .main{
+    padding:1rem max(1rem, env(safe-area-inset-right)) 90px max(1rem, env(safe-area-inset-left));
+  }
+
+  /* FILTRES — défilent horizontalement */
+  .filter-bar{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
+    margin-bottom:.875rem;
+  }
+  .filter-bar::-webkit-scrollbar{display:none}
+  .filter-btn{flex:0 0 auto;padding:6px 14px;font-size:12px}
+
+  /* NIVEAUX — défilent horizontalement */
+  .level-bar{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
+    margin-bottom:1rem;
+  }
+  .level-bar::-webkit-scrollbar{display:none}
+  .lbtn{flex:0 0 auto;padding:6px 12px;font-size:11px}
+
+  /* CARDS */
+  .cards-grid{grid-template-columns:1fr;gap:10px}
+  .card-wrap{height:170px}
+  .card-shortcut{font-size:15px}
+  .card-hint{font-size:12px}
+  .card-face{padding:1rem}
+
+  /* SLIDE */
+  .big-card{min-height:220px;padding:1.25rem}
+  .big-shortcut{font-size:20px;margin:.75rem 0}
+  .big-action{font-size:16px}
+  .snav-btn{display:none}
+  .slide-dots{justify-content:center}
+  .swipe-hint{display:flex}
+  .slide-level-row{gap:6px}
+  .slbtn{padding:10px 16px;font-size:13px;flex:1;justify-content:center}
+  .slide-level-row{gap:8px;margin-top:.875rem}
+  .kbd-hint{display:none}
+
+  /* QUIZ */
+  .quiz-mode-sel{flex-direction:column;gap:8px}
+  .qmode-btn{padding:1rem}
+  .quiz-opts{grid-template-columns:1fr;gap:8px}
+  .quiz-box{padding:1.25rem}
+  .quiz-q{font-size:14px;margin-bottom:1rem}
+  .qopt{padding:16px 14px;font-size:14px;min-height:52px}
+  .score-ring{width:110px;height:110px}
+  .score-n{font-size:28px}
+  .score-box{padding:2rem 1rem}
+  .brow{justify-content:center}
+
+  /* LOCK SCREEN */
+  .lock-box{padding:2rem 1.25rem;margin:1rem;border-radius:16px}
+  .lock-title{font-size:18px}
+
+  /* FORM */
+  .form-grid{grid-template-columns:1fr}
+  .form-panel{padding:1.25rem}
+}
+
 </style>
 </head>
 <body>
@@ -361,6 +498,21 @@ if(sessionStorage.getItem('ma_auth')==='1'){
   <div class="nav-tab active" onclick="showTab('fiches')">Fiches</div>
   <div class="nav-tab" onclick="showTab('slide')">Mode slide</div>
   <div class="nav-tab" onclick="showTab('quiz')">Quiz</div>
+</div>
+<!-- Mobile bottom nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mob-tab active" id="mob-tab-fiches" onclick="mobTab('fiches')">
+    <span class="mob-tab-icon">🃏</span>
+    <span class="mob-tab-label">Fiches</span>
+  </button>
+  <button class="mob-tab" id="mob-tab-slide" onclick="mobTab('slide')">
+    <span class="mob-tab-icon">📖</span>
+    <span class="mob-tab-label">Slide</span>
+  </button>
+  <button class="mob-tab" id="mob-tab-quiz" onclick="mobTab('quiz')">
+    <span class="mob-tab-icon">🧠</span>
+    <span class="mob-tab-label">Quiz</span>
+  </button>
 </div>
 
 <div class="badges-bandeau">
@@ -676,6 +828,13 @@ function updateStats(){
   renderBadgesBandeau();
 }
 
+
+function mobTab(t){
+  showTab(t);
+  document.querySelectorAll('.mob-tab').forEach(el=>el.classList.remove('active'));
+  const btn=document.getElementById('mob-tab-'+t);
+  if(btn)btn.classList.add('active');
+}
 function showTab(t){
   ['fiches','slide','quiz'].forEach(x=>{document.getElementById('tab-'+x).style.display=x===t?'block':'none';});
   document.querySelectorAll('.nav-tab').forEach((el,i)=>{el.classList.toggle('active',['fiches','slide','quiz'][i]===t);});
@@ -872,14 +1031,21 @@ function renderSlide(){
   </div>`;
   let tx=0;
   const bc=el.querySelector('.big-card');
-  let ty=0;
-  bc.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+  let ty=0;let swiping=false;
+  bc.addEventListener('touchstart',e=>{
+    tx=e.touches[0].clientX;ty=e.touches[0].clientY;swiping=false;
+  },{passive:true});
+  bc.addEventListener('touchmove',e=>{
+    const dx=Math.abs(e.touches[0].clientX-tx);
+    const dy=Math.abs(e.touches[0].clientY-ty);
+    if(dx>dy&&dx>10){swiping=true;e.preventDefault();}
+  },{passive:false});
   bc.addEventListener('touchend',e=>{
     const dx=e.changedTouches[0].clientX-tx;
     const dy=e.changedTouches[0].clientY-ty;
-    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>30){
+    if(swiping&&Math.abs(dx)>40){
       if(dx<0)nextSlide();else prevSlide();
-    } else if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)<30){
+    } else if(!swiping&&Math.abs(dy)<20&&Math.abs(dx)<20){
       toggleSlideFlip();
     }
   },{passive:true});
