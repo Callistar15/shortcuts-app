@@ -449,7 +449,6 @@ function setLevel(id,lv){
   const prev=getLevel(id);
   if(lv==='unset')delete levels[id];else levels[id]=lv;
   saveLevels();updateStats();
-  if(lv==='mastered'&&prev!=='mastered')setTimeout(()=>launchConfetti(40),100);
 }
 
 // ── SPACED REPETITION POOL ──
