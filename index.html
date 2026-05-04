@@ -116,6 +116,10 @@ body{font-family:'Georgia',serif;background:var(--bg);color:var(--text);min-heig
 .fb-ppt.on{background:rgba(184,50,50,.1);border-color:var(--ppt);color:var(--ppt)}
 .fb-win.on{background:var(--green-pale);border-color:var(--green3);color:var(--green)}
 .fb-web.on{background:rgba(107,33,168,.1);border-color:#6B21A8;color:#6B21A8}
+.fb-fav.on{background:rgba(234,179,8,.15);border-color:#CA8A04;color:#92400E}
+.star-btn{background:none;border:none;cursor:pointer;font-size:16px;padding:2px 4px;line-height:1;transition:transform .15s;-webkit-tap-highlight-color:transparent}
+.star-btn:hover{transform:scale(1.3)}
+.star-btn:active{transform:scale(0.9)}
 .level-bar{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap}
 .lbtn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:'Segoe UI',sans-serif;display:flex;align-items:center;gap:6px}
 .lbtn:hover{border-color:var(--border2)}
@@ -430,6 +434,7 @@ const BASE=[
 
 // ── STATE ──
 let levels=JSON.parse(localStorage.getItem('ma_levels')||'{}');
+let favs=new Set(JSON.parse(localStorage.getItem('ma_favs')||'[]'));
 // Spaced repetition: track how many times each card was wrong
 let srWrong=JSON.parse(localStorage.getItem('ma_srwrong')||'{}');
 let flipped=new Set();
@@ -442,6 +447,8 @@ let bestScore=parseInt(localStorage.getItem('ma_best')||'0');
 let activePicker=null;
 
 function saveLevels(){localStorage.setItem('ma_levels',JSON.stringify(levels));}
+function saveFavs(){localStorage.setItem('ma_favs',JSON.stringify([...favs]));}
+function toggleFav(id,e){e.stopPropagation();if(favs.has(id))favs.delete(id);else favs.add(id);saveFavs();renderFiches();}
 function saveSR(){localStorage.setItem('ma_srwrong',JSON.stringify(srWrong));}
 function all(){return BASE;}
 function getLevel(id){return levels[id]||'unset';}
@@ -471,7 +478,7 @@ function dedupePool(pool){
 }
 
 function filteredCards(f,lf,q){
-  let cards=f==='all'?all():all().filter(d=>d.cat===f);
+  let cards=f==='all'?all():f==='fav'?all().filter(d=>favs.has(d.id)):all().filter(d=>d.cat===f);
   if(lf&&lf!=='all')cards=cards.filter(d=>getLevel(d.id)===lf);
   if(q){const ql=q.toLowerCase();cards=cards.filter(d=>d.shortcut.toLowerCase().includes(ql)||d.action.toLowerCase().includes(ql)||(d.hint&&d.hint.toLowerCase().includes(ql)));}
   return cards;
@@ -640,6 +647,7 @@ function renderFiches(){
     <button class="filter-btn fb-ppt ${currentFilter==='ppt'?'on':''}" onclick="setFilter('ppt')">PowerPoint (${cnt('ppt')})</button>
     <button class="filter-btn fb-win ${currentFilter==='win'?'on':''}" onclick="setFilter('win')">Windows (${cnt('win')})</button>
     <button class="filter-btn fb-web ${currentFilter==='web'?'on':''}" onclick="setFilter('web')">Web (${cnt('web')})</button>
+    <button class="filter-btn fb-fav ${currentFilter==='fav'?'on':''}" onclick="setFilter('fav')">⭐ Favoris (${favs.size})</button>
   </div>
   <div class="level-bar">
     <button class="lbtn ${levelFilter==='all'?'on-unset':''}" onclick="setLevelFilter('all')"><span class="dot dot-unset"></span>Tous</button>
@@ -649,7 +657,7 @@ function renderFiches(){
     <button class="lbtn ${levelFilter==='unset'?'on-unset':''}" onclick="setLevelFilter('unset')"><span class="dot dot-unset"></span>Non évalué (${all().filter(d=>getLevel(d.id)==='unset').length})</button>
   </div>
   ${searchQuery?`<div class="search-count">${cards.length} résultat${cards.length!==1?'s':''} pour « ${searchQuery} »</div>`:''}
-  <div class="stitle">Cliquer pour retourner · point coloré pour évaluer</div>
+  <div class="stitle">Cliquer pour retourner · point coloré pour évaluer · ☆ pour favoris</div>
   <div class="cards-grid">`;
   if(!cards.length){
     html+=`<div class="empty" style="grid-column:1/-1"><div class="empty-t">Aucune fiche</div><div class="empty-s">${searchQuery?`Aucun résultat pour « ${searchQuery} »`:'Modifiez les filtres'}</div></div>`;
@@ -665,6 +673,7 @@ function renderFiches(){
                 ${badge(d.cat)}
                 <span class="lv-flag ${lv}" onclick="event.stopPropagation();togglePicker(event,${d.id})" title="Évaluer"></span>
               </div>
+              <button class="star-btn" onclick="toggleFav(${d.id},event)" title="${favs.has(d.id)?'Retirer des favoris':'Ajouter aux favoris'}">${favs.has(d.id)?'⭐':'☆'}</button>
             </div>
             <div class="card-shortcut">${hl(d.shortcut)}</div>
             <div class="card-hint">${hl(d.hint)||'&nbsp;'}</div>
