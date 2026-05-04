@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M&A Shortcuts</title>
+
+<!-- PWA -->
+<link rel="manifest" href="/shortcuts-app/manifest.json">
+<meta name="theme-color" content="#2C5F2E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="M&A Shortcuts">
+<link rel="apple-touch-icon" href="/shortcuts-app/icon-192.png">
+<meta name="description" content="Révisez vos raccourcis clavier Excel, PowerPoint, Windows et Web">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -1025,6 +1035,16 @@ function showToast(msg,type='ok'){
 
 updateStats();
 renderFiches();
+</script>
+<!-- PWA Service Worker -->
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/shortcuts-app/sw.js')
+      .then(()=>console.log('SW enregistré'))
+      .catch(e=>console.log('SW erreur:',e));
+  });
+}
 </script>
 </body>
 </html>
