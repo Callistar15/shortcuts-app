@@ -445,7 +445,12 @@ function saveLevels(){localStorage.setItem('ma_levels',JSON.stringify(levels));}
 function saveSR(){localStorage.setItem('ma_srwrong',JSON.stringify(srWrong));}
 function all(){return BASE;}
 function getLevel(id){return levels[id]||'unset';}
-function setLevel(id,lv){if(lv==='unset')delete levels[id];else levels[id]=lv;saveLevels();updateStats();}
+function setLevel(id,lv){
+  const prev=getLevel(id);
+  if(lv==='unset')delete levels[id];else levels[id]=lv;
+  saveLevels();updateStats();
+  if(lv==='mastered'&&prev!=='mastered')setTimeout(()=>launchConfetti(40),100);
+}
 
 // ── SPACED REPETITION POOL ──
 // Weight: unknown=5x, learning=2x, mastered=0.5x, unset=1x
@@ -496,6 +501,42 @@ if(localStorage.getItem('ma_dark')==='1'){
   });
 }
 
+// ── CONFETTIS ──
+function launchConfetti(intensity=60){
+  const colors=['#22863a','#4E9E52','#C9A84C','#F0C040','#B83232','#7C6FAB','#1D5FA8','#F5F0E8'];
+  const container=document.createElement('div');
+  container.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden';
+  document.body.appendChild(container);
+  for(let i=0;i<intensity;i++){
+    const el=document.createElement('div');
+    const size=Math.random()*8+4;
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    const x=Math.random()*100;
+    const delay=Math.random()*600;
+    const dur=Math.random()*1200+800;
+    const rot=Math.random()*360;
+    const shape=Math.random()>.5?'50%':'2px';
+    el.style.cssText=`
+      position:absolute;width:${size}px;height:${size}px;
+      background:${color};border-radius:${shape};
+      left:${x}%;top:-10px;
+      animation:confetti-fall ${dur}ms ${delay}ms ease-in forwards;
+      transform:rotate(${rot}deg);
+    `;
+    container.appendChild(el);
+  }
+  const style=document.createElement('style');
+  style.textContent=`
+    @keyframes confetti-fall{
+      0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}
+      80%{opacity:1}
+      100%{transform:translateY(100vh) rotate(${Math.random()*720}deg) scale(0.5);opacity:0}
+    }
+  `;
+  document.head.appendChild(style);
+  setTimeout(()=>{container.remove();style.remove();},2500);
+}
+
 // ── BADGES ──
 const BADGES_DEF=[
   {id:'souris',name:'Souris Addict',pct:0,desc:'Dès le début',color:'#9AA89B',
@@ -516,12 +557,14 @@ function renderBadgesBandeau(){
   const pct=parseInt(document.getElementById('hprog-pct').textContent)||0;
   const row=document.getElementById('badges-bandeau-row');
   if(!row)return;
+  const prevUnlocked=new Set(Array.from(row.querySelectorAll('.bdg.unlocked')).map(el=>el.dataset.id));
   row.innerHTML='';
   const ns='http://www.w3.org/2000/svg';
   BADGES_DEF.forEach(b=>{
     const unlocked=pct>=b.pct;
     const div=document.createElement('div');
     div.className='bdg '+(unlocked?'unlocked':'locked');
+    div.dataset.id=b.id;
     const svg=document.createElementNS(ns,'svg');
     svg.setAttribute('width','48');svg.setAttribute('height','48');
     svg.setAttribute('viewBox','-38 -38 76 76');
@@ -542,6 +585,11 @@ function renderBadgesBandeau(){
     name.textContent=b.name;
     div.appendChild(svg);div.appendChild(tip);div.appendChild(name);
     row.appendChild(div);
+    // confetti si nouveau badge débloqué
+    if(unlocked&&!prevUnlocked.has(b.id)&&prevUnlocked.size>0){
+      setTimeout(()=>launchConfetti(80),100);
+      showToast('🎉 Badge débloqué : '+b.name,'ok');
+    }
   });
 }
 
@@ -844,6 +892,7 @@ function renderQuiz(){
     const score=quizResults.filter(r=>r).length;
     const pct=Math.round(score/quizResults.length*100);
     if(pct>bestScore){bestScore=pct;localStorage.setItem('ma_best',String(bestScore));}
+    if(pct===100)setTimeout(()=>launchConfetti(120),300);
     const msg=pct>=80?'Excellent ! Maîtrise confirmée. 🎯':pct>=60?'Très bien ! Continuez.':pct>=40?'Pas mal ! Encore un effort.':'Continuez, vous progressez !';
     const nRight=quizResults.filter(r=>r).length;
     const nWrong=quizResults.length-nRight;
