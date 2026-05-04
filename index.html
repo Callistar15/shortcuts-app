@@ -6,12 +6,12 @@
 <title>M&A Shortcuts</title>
 
 <!-- PWA -->
-<link rel="manifest" href="/shortcuts-app/manifest.json">
+<link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#2C5F2E">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="M&A Shortcuts">
-<link rel="apple-touch-icon" href="/shortcuts-app/icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
 <meta name="description" content="Révisez vos raccourcis clavier Excel, PowerPoint, Windows et Web">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,7 +81,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
 /* MAIN */
 .main{padding:2rem 2.5rem;max-width:1100px;margin:0 auto}
-@media(max-width:640px){.main{padding:1.25rem 1rem}.header{padding:1rem}.header-progress{width:100%}.nav{padding:0 1rem}}
+
 
 /* PROGRESS BANNER (in fiches tab) */
 .prog-banner{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
@@ -233,7 +233,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .quiz-q{font-size:16px;font-weight:600;color:var(--text);margin-bottom:1.5rem;line-height:1.6;font-family:'Plus Jakarta Sans',sans-serif}
 .quiz-q code{background:var(--bg2);padding:4px 12px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--green);border:1px solid var(--border)}
 .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:500px){.quiz-opts{grid-template-columns:1fr}}
+
 .qopt{padding:13px 16px;border-radius:10px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:13px;color:var(--text2);text-align:left;line-height:1.4;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
 .qopt:hover:not(:disabled){border-color:var(--green2);background:var(--green-pale);color:var(--green)}
 .qopt:disabled{cursor:default}
@@ -291,7 +291,122 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .bdg-tip strong{font-weight:600;display:block;margin-bottom:2px}
 .bdg-tip small{color:var(--text3);font-size:10px}
 .bdg:hover .bdg-tip{display:block}
-@media(max-width:640px){.badges-bandeau{padding:.6rem 1rem;gap:.75rem}.badges-bandeau-label{display:none}}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+
+  /* Safe area pour iPhone (encoche/Dynamic Island) */
+  body{padding-top:env(safe-area-inset-top)}
+  .header{
+    padding:.875rem max(1rem, env(safe-area-inset-left)) .875rem max(1rem, env(safe-area-inset-right));
+    gap:.5rem;
+  }
+
+  /* HEADER simplifié */
+  .logo-sub{display:none}
+  .logo-icon{width:34px;height:34px;font-size:15px}
+  .logo-title{font-size:14px}
+  .header-right{gap:4px}
+  .header-stats{gap:10px}
+  .hstat-n{font-size:15px}
+  .hstat-l{font-size:8px}
+  .dark-toggle span:last-child{display:none}
+  .dark-toggle{padding:5px 8px}
+  .header-progress{width:120px}
+  .hprog-label span:first-child{display:none}
+  .hprog-segs-wrap{display:none}
+
+  /* NAV — défile horizontalement */
+  .nav{
+    padding:0 max(.75rem, env(safe-area-inset-left));
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .nav::-webkit-scrollbar{display:none}
+  .nav-tab{padding:11px 14px;font-size:12px}
+
+  /* BADGES — défile horizontalement */
+  .badges-bandeau{
+    padding:.5rem max(.75rem, env(safe-area-inset-left));
+    gap:.5rem;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    flex-wrap:nowrap;
+  }
+  .badges-bandeau::-webkit-scrollbar{display:none}
+  .badges-bandeau-label{display:none}
+  .badges-bandeau-row{flex-wrap:nowrap;justify-content:flex-start;gap:.875rem}
+  .bdg{flex:0 0 auto}
+  .bdg svg{width:40px;height:40px}
+  .bdg-name{font-size:9px}
+
+  /* MAIN avec marges safe area */
+  .main{
+    padding:1rem max(1rem, env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  }
+
+  /* FILTRES — défilent horizontalement */
+  .filter-bar{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
+    margin-bottom:.875rem;
+  }
+  .filter-bar::-webkit-scrollbar{display:none}
+  .filter-btn{flex:0 0 auto;padding:6px 14px;font-size:12px}
+
+  /* NIVEAUX — défilent horizontalement */
+  .level-bar{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:4px;
+    margin-bottom:1rem;
+  }
+  .level-bar::-webkit-scrollbar{display:none}
+  .lbtn{flex:0 0 auto;padding:6px 12px;font-size:11px}
+
+  /* CARDS */
+  .cards-grid{grid-template-columns:1fr;gap:10px}
+  .card-wrap{height:150px}
+  .card-shortcut{font-size:15px}
+  .card-hint{font-size:12px}
+  .card-face{padding:1rem}
+
+  /* SLIDE */
+  .big-card{min-height:220px;padding:1.25rem}
+  .big-shortcut{font-size:20px;margin:.75rem 0}
+  .big-action{font-size:16px}
+  .snav-btn{padding:9px 16px;font-size:12px}
+  .slide-level-row{gap:6px}
+  .slbtn{padding:6px 12px;font-size:11px;flex:0 0 auto}
+  .kbd-hint{display:none}
+
+  /* QUIZ */
+  .quiz-mode-sel{flex-direction:column;gap:8px}
+  .qmode-btn{padding:1rem}
+  .quiz-opts{grid-template-columns:1fr;gap:8px}
+  .quiz-box{padding:1.25rem}
+  .quiz-q{font-size:14px;margin-bottom:1rem}
+  .qopt{padding:13px 14px;font-size:13px}
+  .score-ring{width:110px;height:110px}
+  .score-n{font-size:28px}
+  .score-box{padding:2rem 1rem}
+  .brow{justify-content:center}
+
+  /* LOCK SCREEN */
+  .lock-box{padding:2rem 1.25rem;margin:1rem;border-radius:16px}
+  .lock-title{font-size:18px}
+
+  /* FORM */
+  .form-grid{grid-template-columns:1fr}
+  .form-panel{padding:1.25rem}
+}
+
 </style>
 </head>
 <body>
@@ -1040,7 +1155,7 @@ renderFiches();
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('/shortcuts-app/sw.js')
+    navigator.serviceWorker.register('./sw.js')
       .then(()=>console.log('SW enregistré'))
       .catch(e=>console.log('SW erreur:',e));
   });
