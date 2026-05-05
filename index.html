@@ -348,32 +348,37 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   .logo-icon{width:34px;height:34px;font-size:15px}
   .logo-title{font-size:14px}
 
-  /* header-right : row avec stats à gauche, badge+toggle à droite */
+  /* header-right : deux lignes */
   .header-right{
-    flex-direction:row;
+    flex-direction:column;
+    align-items:stretch;
+    gap:6px;
+    width:100%;
+  }
+
+  /* ligne 1 : stats à gauche + badge+toggle à droite */
+  .header-right > div:first-child{
+    display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:8px;
-    width:100%;
   }
   .header-stats{
     gap:10px;
     flex-wrap:nowrap;
-    order:0;
   }
   .hstat{text-align:left}
   .hstat-n{font-size:15px}
   .hstat-l{font-size:8px}
 
-  /* dark toggle + badge à droite */
+  /* badge plus grand à droite */
+  .mobile-badge svg{width:52px !important;height:52px !important}
+  .mobile-badge-name{font-size:11px}
   .dark-toggle span:last-child{display:none}
-  .dark-toggle{padding:5px 8px;order:1}
-  .mobile-badge{order:0}
+  .dark-toggle{padding:5px 8px}
 
-  /* barre de progression pleine largeur en dessous */
+  /* ligne 2 : barre de progression sous les compteurs */
   .header-progress{
     width:100%;
-    order:2;
   }
   .hprog-label span:first-child{display:none}
   .hprog-segments{display:none}
