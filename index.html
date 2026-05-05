@@ -297,6 +297,25 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
 
 
+
+/* DESKTOP only elements */
+.mobile-header{display:none}
+.desktop-only{display:flex}
+
+/* MOBILE HEADER layout */
+.mob-header-row1{display:flex;align-items:center;justify-content:space-between}
+.mob-header-row2{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.mob-stats{display:flex;gap:12px;align-items:center}
+.mob-stat{display:flex;flex-direction:column;align-items:flex-start}
+.mob-stat-n{font-size:17px;font-weight:700;color:#F5F0E8;line-height:1;font-family:'Plus Jakarta Sans',sans-serif}
+.mob-stat-n.green{color:#86efac}
+.mob-stat-n.yellow{color:#fde68a}
+.mob-stat-n.red{color:#fca5a5}
+.mob-stat-l{font-size:9px;color:rgba(245,240,232,0.55);text-transform:uppercase;letter-spacing:.06em;font-family:'Plus Jakarta Sans',sans-serif}
+.mob-progress{display:flex;align-items:center;gap:8px}
+.mob-prog-bar{flex:1;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;overflow:hidden}
+.mob-prog-pct{font-size:11px;font-weight:600;color:rgba(245,240,232,0.8);font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap}
+
 /* MOBILE CURRENT BADGE */
 .mobile-badge{
   display:none;
@@ -495,17 +514,17 @@ if(sessionStorage.getItem('ma_auth')==='1'){
 </script>
 
 <div class="header">
-  <div class="logo">
+  <!-- DESKTOP layout -->
+  <div class="logo desktop-only">
     <div class="logo-icon">⌨</div>
     <div>
       <div class="logo-title">M&A Shortcuts</div>
       <div class="logo-sub">Excel · PowerPoint · Windows · Web</div>
     </div>
   </div>
-  <div class="header-right">
+  <div class="header-right desktop-only">
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end">
       <div style="display:flex;align-items:center;gap:8px">
-        <div class="mobile-badge" id="mobile-badge"></div>
         <button class="dark-toggle" onclick="toggleDark()" id="dark-btn">
           <span class="toggle-icon">🌙</span><span id="dark-label">Mode sombre</span>
         </button>
@@ -522,6 +541,37 @@ if(sessionStorage.getItem('ma_auth')==='1'){
       <div class="hprog-track"><div class="hprog-fill" id="hprog-fill" style="width:0%"></div></div>
       <div class="hprog-segments" id="hprog-segs"></div>
     </div>
+  </div>
+
+  <!-- MOBILE layout -->
+  <div class="mobile-header">
+    <!-- Ligne 1 : logo + badge -->
+    <div class="mob-header-row1">
+      <div class="logo">
+        <div class="logo-icon">⌨</div>
+        <div>
+          <div class="logo-title">M&A Shortcuts</div>
+        </div>
+      </div>
+      <div class="mobile-badge" id="mobile-badge"></div>
+    </div>
+    <!-- Ligne 2 : stats + progress -->
+    <div class="mob-header-row2">
+      <div class="mob-stats">
+        <div class="mob-stat"><span class="mob-stat-n" id="stat-total">0</span><span class="mob-stat-l">Total</span></div>
+        <div class="mob-stat"><span class="mob-stat-n green" id="stat-mastered">0</span><span class="mob-stat-l">✓ Maîtrisés</span></div>
+        <div class="mob-stat"><span class="mob-stat-n yellow" id="stat-learning">0</span><span class="mob-stat-l">En cours</span></div>
+        <div class="mob-stat"><span class="mob-stat-n red" id="stat-unknown">0</span><span class="mob-stat-l">À revoir</span></div>
+      </div>
+      <div class="mob-progress">
+        <div class="mob-prog-bar"><div class="hprog-fill" id="hprog-fill" style="width:0%"></div></div>
+        <span class="mob-prog-pct"><strong id="hprog-pct">0%</strong></span>
+      </div>
+    </div>
+  </div>
+  <!-- hidden desktop elements needed by JS -->
+  <div style="display:none">
+    <div id="hprog-segs"></div>
   </div>
 </div>
 
@@ -873,10 +923,10 @@ function updateStats(){
   const nUnknown=a.filter(d=>getLevel(d.id)==='unknown').length;
   const nUnset=a.length-nMastered-nLearning-nUnknown;
   const pct=Math.round(nMastered/a.length*100);
-  document.getElementById('stat-total').textContent=a.length;
-  document.getElementById('stat-mastered').textContent=nMastered;
-  document.getElementById('stat-learning').textContent=nLearning;
-  document.getElementById('stat-unknown').textContent=nUnknown;
+  ['stat-total','stat-mastered','stat-learning','stat-unknown'].forEach((id,i)=>{
+    const val=[a.length,nMastered,nLearning,nUnknown][i];
+    document.querySelectorAll('#'+id).forEach(el=>el.textContent=val);
+  });
   document.getElementById('hprog-pct').textContent=pct+'%';
   document.getElementById('hprog-fill').style.width=pct+'%';
   // segments

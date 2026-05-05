@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ma-shortcuts-v5';
+const CACHE_NAME = 'ma-shortcuts-v6';
 const ASSETS = [
   './',
   './index.html',
