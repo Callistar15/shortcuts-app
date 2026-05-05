@@ -1,29 +1,27 @@
-const CACHE_NAME = 'ma-shortcuts-v1';
+const CACHE_NAME = 'ma-shortcuts-v4';
 const ASSETS = [
-  '/shortcuts-app/',
-  '/shortcuts-app/index.html',
-  'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
 
-// Installation — mise en cache des ressources
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
-  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
+  self.skipWaiting(); // active immédiatement sans attendre fermeture
 });
 
-// Activation — suppression des anciens caches
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
       Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
     )
   );
-  self.clients.claim();
+  self.clients.claim(); // prend le contrôle de tous les onglets ouverts
 });
 
-// Fetch — réseau en priorité, cache en fallback
+// Réseau en priorité, cache en fallback — toujours la version la plus récente
 self.addEventListener('fetch', e => {
   e.respondWith(
     fetch(e.request)
@@ -34,4 +32,9 @@ self.addEventListener('fetch', e => {
       })
       .catch(() => caches.match(e.request))
   );
+});
+
+// Notifie les clients quand une nouvelle version est disponible
+self.addEventListener('message', e => {
+  if(e.data === 'skipWaiting') self.skipWaiting();
 });

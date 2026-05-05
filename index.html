@@ -334,46 +334,57 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 /* ── MOBILE ── */
 @media(max-width:640px){
 
-  /* Safe area pour iPhone (encoche/Dynamic Island) */
+  /* Safe area iPhone */
   body{padding-top:env(safe-area-inset-top)}
-  .header{
-    padding:.875rem max(1rem, env(safe-area-inset-left)) .875rem max(1rem, env(safe-area-inset-right));
-    gap:.5rem;
-  }
 
-  /* HEADER simplifié */
+  /* HEADER — colonne, stats à gauche */
+  .header{
+    padding:.75rem max(1rem,env(safe-area-inset-left)) .75rem max(1rem,env(safe-area-inset-right));
+    flex-direction:column;
+    gap:.5rem;
+    align-items:stretch;
+  }
   .logo-sub{display:none}
   .logo-icon{width:34px;height:34px;font-size:15px}
   .logo-title{font-size:14px}
-  .header-right{gap:4px}
-  .header-stats{gap:10px}
+
+  /* header-right : row avec stats à gauche, badge+toggle à droite */
+  .header-right{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    width:100%;
+  }
+  .header-stats{
+    gap:10px;
+    flex-wrap:nowrap;
+    order:0;
+  }
+  .hstat{text-align:left}
   .hstat-n{font-size:15px}
   .hstat-l{font-size:8px}
-  .dark-toggle span:last-child{display:none}
-  .dark-toggle{padding:5px 8px}
-  .header-progress{width:120px}
-  .hprog-label span:first-child{display:none}
-  .hprog-segs-wrap{display:none}
 
-  /* NAV — cachée sur mobile, remplacée par menu sous logo */
+  /* dark toggle + badge à droite */
+  .dark-toggle span:last-child{display:none}
+  .dark-toggle{padding:5px 8px;order:1}
+  .mobile-badge{order:0}
+
+  /* barre de progression pleine largeur en dessous */
+  .header-progress{
+    width:100%;
+    order:2;
+  }
+  .hprog-label span:first-child{display:none}
+  .hprog-segments{display:none}
+
+  /* NAV — cachée, remplacée par bottom nav */
   .nav{display:none}
   .mobile-nav{display:flex}
 
-  /* BADGES — défile horizontalement */
-  .badges-bandeau{
-    padding:.5rem max(.75rem, env(safe-area-inset-left));
-    gap:.5rem;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    flex-wrap:nowrap;
-  }
-  .badges-bandeau::-webkit-scrollbar{display:none}
-  .badges-bandeau-label{display:none}
-  .badges-bandeau-row{flex-wrap:nowrap;justify-content:flex-start;gap:.875rem}
-  .bdg{flex:0 0 auto}
-  .bdg svg{width:40px;height:40px}
-  .bdg-name{font-size:9px}
+  /* BADGES bandeau — caché sur mobile */
+  .badges-bandeau{display:none}
+  .mobile-badge{display:flex}
 
   /* MAIN avec marges safe area */
   .main{
